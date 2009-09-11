@@ -16,10 +16,9 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
 import uk.ac.cam.cl.dtg.android.time.buses.*;
-import uk.ac.cam.cl.dtg.android.time.data.CouncilDataSource;
 import uk.ac.cam.cl.dtg.android.time.data.handler.QueryHandler;
 
-// TODO: Change when we have database. Branch off arrivals into separate feed
+
 public class StopArrivalsServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -62,6 +61,7 @@ public class StopArrivalsServlet extends HttpServlet {
 	/**
 	 * Handle a GET request
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)	throws ServletException, IOException
 	{
 		// Set output type.

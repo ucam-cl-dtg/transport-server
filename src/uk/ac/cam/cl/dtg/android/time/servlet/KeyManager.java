@@ -1,7 +1,6 @@
 package uk.ac.cam.cl.dtg.android.time.servlet;
 
 import java.sql.*;
-import java.util.Properties;
 
 /**
  * Deals with verifying authentication of API keys
