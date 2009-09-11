@@ -8,8 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
+/**
+ * Class containing some useful service-wide stuff.
+ * 
+ * @author dt316
+ *
+ */
 public class ServletUtils {
 
+	/**
+	 * Outputs an exception in a nice format.
+	 * 
+	 * @param res
+	 * @param e
+	 */
 	public static void PrintException(HttpServletResponse res, Exception e) {
 		
 		try {

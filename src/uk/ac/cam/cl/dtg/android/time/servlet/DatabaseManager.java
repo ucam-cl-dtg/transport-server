@@ -3,6 +3,12 @@ package uk.ac.cam.cl.dtg.android.time.servlet;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * Controls access to the database and maintains one connection
+ * 
+ * @author dt316
+ *
+ */
 public class DatabaseManager {
 
 	static Connection conn;
@@ -11,6 +17,10 @@ public class DatabaseManager {
 	private static String DB_PASS = "urop09";
 	private static String DB_URL = "jdbc:postgresql://localhost/transport";
 
+	/**
+	 * Returns a connection to the database
+	 * @return
+	 */
 	public static Connection getConnection() {
 
 		if(conn == null) {

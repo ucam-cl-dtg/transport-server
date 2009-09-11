@@ -2,7 +2,7 @@
 body{
 margin:0px;
 padding:0px;
-background:url(images/main-bg.gif) 0 0 repeat-x #F2F0DC;
+background:#fff;
 color:#5D5B46;
 font:14px/18px Helvetica, Sans-Serif, Georgia, "Times New Roman", Times, serif;}
 div, p, h2, img{margin:0px; padding:0px;}
@@ -20,6 +20,10 @@ margin:3px;
 dt {
 color: #e11;
 padding:5px;
+}
+
+a img {
+border:0px;
 }
 
 /*----TOP PANEL----*/
@@ -81,7 +85,7 @@ padding:5px;
 
 /*----BODY PANEL----*/
 #bodyPan{width:800px; position:relative; margin:0 auto;}
-#bodyPan h2{width:300px; height:54px; background:#F2F0DC; color:#D80000; font:26px/54px "Trebuchet MS",Arial, Helvetica, sans-serif;}
+#bodyPan h2{width:300px; height:54px; color:#D80000; font:26px/54px "Trebuchet MS",Arial, Helvetica, sans-serif;}
 
 #bodyPan p{padding:10px 0 0;}
 #bodyPan p span{font-weight:bold;}

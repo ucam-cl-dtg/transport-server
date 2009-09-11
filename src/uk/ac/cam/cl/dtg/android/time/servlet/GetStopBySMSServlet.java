@@ -14,6 +14,8 @@ import uk.ac.cam.cl.dtg.android.time.data.CouncilDataSource;
 
 /**
  * Provides XML/RPC interface to bus stop position web service
+ * Not exposed as part of OmniBus - should instead use LookupStop.
+ * This is here to support Cambridgeshire bus app
  * 
  * @author dt316
  *

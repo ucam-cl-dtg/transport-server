@@ -11,10 +11,19 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.xml.stream.*;
 
+/**
+ * Web service which lists all stop points within a stop group
+ * 
+ * @author dt316
+ *
+ */
 public class ListStopPointsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	// Connection to the DB
 	Connection conn;
+	
+	// Prepared statement to hold the select
 	PreparedStatement searchStatement;
 
 	@Override
@@ -25,6 +34,7 @@ public class ListStopPointsServlet extends HttpServlet {
 		// Get connection to DB
 		conn = DatabaseManager.getConnection();
 		
+		// Initialise the PreparedStatement with the (long) select
 		String sql = "select"
 			+ " naptan_group_memberships.atco_code AS atco_code,"
 			+ " available_stops.stop_name AS ds_name,"

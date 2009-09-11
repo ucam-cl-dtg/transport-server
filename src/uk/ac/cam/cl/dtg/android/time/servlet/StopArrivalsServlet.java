@@ -24,10 +24,13 @@ public class StopArrivalsServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
-	// How lmany arrivals to fetch by default
+	// How many arrivals to fetch by default
 	public static final int DEFAULT_ARRIVAL_COUNT = 5;	
 	
+	// Our DB connection
 	Connection conn;
+	
+	// The statement that will do the dirty work
 	PreparedStatement lookupHandler;
 
 	@Override
@@ -109,10 +112,9 @@ public class StopArrivalsServlet extends HttpServlet {
 			
 			// Write <arrivals> tag
 			writer.writeStartElement("arrivals");
-			writer.writeAttribute("timestamp", "unavailable");
-			writer.writeAttribute("handler", handler);
 			writer.writeAttribute("count", String.valueOf(nextArrivals.size()));
 			
+			// Write the <arrival> information
 			for(BusArrival arrival : nextArrivals) {
 				
 				writer.writeStartElement("arrival");

@@ -27,7 +27,10 @@ public class LookupStopServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
+	// Our DB connection
 	Connection conn;
+	
+	// Ready-made statements for the two query types
 	PreparedStatement searchByATCO;
 	PreparedStatement searchByNaPTAN;
 
@@ -39,6 +42,7 @@ public class LookupStopServlet extends HttpServlet
 		// Get connection to DB
 		conn = DatabaseManager.getConnection();
 
+		// Query by ATCO
 		String sqlATCO = "select"
 			+ " naptan_extended_stop_info.atco_code AS atco_code,"
 			+ " available_stops.stop_name AS ds_name,"
@@ -57,6 +61,7 @@ public class LookupStopServlet extends HttpServlet
 			+ " on (available_stops.atco_code = naptan_extended_stop_info.atco_code)"
 			+ " where naptan_extended_stop_info.atco_code=? limit 1";
 		
+		// Query by NaPTAN
 		String sqlNaPTAN = "select"
 			+ " naptan_extended_stop_info.atco_code AS atco_code,"
 			+ " available_stops.stop_name AS ds_name,"

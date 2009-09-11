@@ -19,7 +19,7 @@
 	
 	<p>The OmniBus services accessed as a REST service. Each service is accessible through the URL:
 	
-	<pre>http://www.cl.cam.ac.uk/research/dtg/transport/omnibus/SERVICE_NAME</pre>
+	<pre>http://www.cl.cam.ac.uk/research/dtg/transport/SERVICE_NAME</pre>
 	
 	where 'SERVICE_NAME' is replaced with the service name, given below. The services should be accessed through HTTP GET, and parameters passed in the query string.</p>
   
@@ -85,6 +85,8 @@
 		<dd>A nominal radius to search within from the given point. A value of 10,000 is roughly 10km although since all calculations are on a lat/long grid inaccuracy will occur - we suggest you overstate your radius somewhat (but don't set this to incredibly high values - the radius culling is essential to making your query fast!) (optional, default = 10,000 ~ 10km search radius)</dd>
 		
 	</dl>
+	Example:
+	<pre>FindStopGroups?key=KEY&method=near&lat=52.2&long=0.09&numresults=30&radius=5000</pre>
 	<b>Find stop groups within a bounding box:</b>
 	<i>Note: a maximum of 10,000 stops groups will be returned by this method. If you require wider coverage, please break up your query</i>
 		<dl>
@@ -98,6 +100,9 @@
 		<dd>latitude (top, bottom) and longitude (left, right) values which define the bounding box within which you want to search for stop groups. (required)</dd>
 		
 	</dl>
+	Example (all bus stops in the village of Coton):
+	<pre>FindStopGroups?key=KEY&method=within&left=0.051241&bottom=52.204910&right=0.073557&top=52.212537</pre>
+
 	</p>
 	
 	<h3>Sample XML response</h3>
@@ -156,6 +161,9 @@
 		<dd>The group reference for the stop group in question (required)</dd>
 				
 	</dl>
+	
+	Example (Drummer St Bus Station, Cambridge):
+	<pre>ListStopPoints?key=KEY&groupref=050GCC000000</pre>
 	
 	
 	<h3>Sample XML response</h3>
@@ -256,6 +264,10 @@
 				
 	</dl>
 	
+	Example:
+	
+	<pre>GetArrivals?key=sesame&atco=0500CCITY111</pre>
+	
 	
 	<h3>Sample XML response</h3>
 	
@@ -264,7 +276,7 @@
 	
 	<pre>
 &lt;response&gt;
-    &lt;arrivals timestamp="15:27" count="5"&gt;
+    &lt;arrivals count="5"&gt;
       &lt;arrival&gt;
         &lt;service&gt;99&lt;/service&gt;
         &lt;destination&gt;City &amp; The Grafton&lt;/destination&gt;
@@ -289,8 +301,6 @@
 	<div style="float:right;width:49%">
 	
 	<dl>
-		<dt>timestamp</dt>
-		<dd>when the request was serviced</dd>
 		<dt>count</dt>
 		<dd>how many arrivals were returned</dd>
 		<dt>service</dt>
@@ -338,6 +348,16 @@
 		<dd>NaPTAN code for the stop in question (required if atco not specified)</dd>
 				
 	</dl>
+	
+	Example:
+	
+	<pre>
+LookupStop?key=sesame&naptan=cmbdajdm
+	
+or
+	
+LookupStop?key=sesame&atco=0500CCITY111
+</pre>
 	
 	
 	<h3>Sample XML response</h3>
