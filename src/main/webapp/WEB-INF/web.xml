@@ -50,7 +50,7 @@
 
     <context-param>
       <param-name>webmaster</param-name>
-      <param-value>myaddress@mycompany.com</param-value>
+      <param-value>dtg-android[at]cl.cam.ac.uk</param-value>
       <description>
         The EMAIL address of the administrator to whom questions
         and comments about this application should be addressed.
