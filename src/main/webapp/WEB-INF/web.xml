@@ -130,14 +130,6 @@
       </description>
       <servlet-class>uk.ac.cam.cl.dtg.android.time.servlet.LookupStopServlet</servlet-class>
     </servlet>
-
-    <servlet>
-      <servlet-name>DumpRequest</servlet-name>
-      <description>
-		Lists the stop points within a certain stop group
-      </description>
-      <servlet-class>uk.ac.cam.cl.dtg.android.time.servlet.DumpRequest</servlet-class>
-    </servlet>
   
     <!-- Define mappings that are used by the servlet container to
          translate a particular request URI (context-relative) to a
@@ -189,10 +181,6 @@
       <url-pattern>/LookupStop</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-      <servlet-name>DumpRequest</servlet-name>
-      <url-pattern>/DumpRequest</url-pattern>
-    </servlet-mapping>
     <!-- Define the default session timeout for your application,
          in minutes.  From a servlet or JSP page, you can modify
          the timeout for a particular session dynamically by using
