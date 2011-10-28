@@ -40,19 +40,16 @@ public class GetStopBySMSServlet extends HttpServlet
 	throws ServletException, IOException
 	{
 		// Set output type.
-		res.setContentType("application/xml");
+		res.setContentType( ServletUtils.MIME_XML );
 
 		// Start try block. Any exception results in error for whole request.
 		try {
 
 			// Check if key is valid
-			if(!KeyManager.isValidKey(req.getParameter("key"),"services")) throw new Exception("Invalid API key.");
-
-			// Check if key is valid
-			if(req.getParameter("smscode")==null) throw new Exception("SMS code is required");
+		  ServletUtils.checkKeyForServices(req);
 			
 			// Get the data from server
-			BusStop stop = CouncilDataSource.lookupStopBySMS(req.getParameter("smscode"));
+			BusStop stop = CouncilDataSource.lookupStopBySMS(ServletUtils.getRequiredParameter(req,"smscode"));
 
 			// Get the output writer
 			PrintWriter out = res.getWriter();

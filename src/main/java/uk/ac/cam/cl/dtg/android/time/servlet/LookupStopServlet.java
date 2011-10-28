@@ -102,16 +102,13 @@ public class LookupStopServlet extends HttpServlet
 	throws ServletException, IOException
 	{
 		// Set output type.
-		res.setContentType("application/xml");
+		res.setContentType( ServletUtils.MIME_XML );
 
 		// Start try block. Any exception results in error for whole request.
 		try {
 
 			// Check if key is valid
-			if(!KeyManager.isValidKey(req.getParameter("key"),"services")) throw new Exception("Invalid API key.");
-
-			// New statement object to do query
-			Statement st = conn.createStatement();
+		  ServletUtils.checkKeyForServices(req);
 
 			// Check to see if an atco or naptan code was supplied
 			String naptan = req.getParameter("naptan");

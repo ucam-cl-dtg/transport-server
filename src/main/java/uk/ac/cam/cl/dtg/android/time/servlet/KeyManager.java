@@ -43,6 +43,27 @@ public class KeyManager {
 		}
 	}
 
+	/**
+	 * Check whether the key is valid for services and if not throws an {@link InvalidKeyException}
+	 * @param key
+	 * @throws InvalidKeyException
+	 */
+	public static void isValidForServices(String key) throws InvalidKeyException{
+	  if(key == null || !KeyManager.isValidKey(key, "services")) throw new InvalidKeyException();
+	}
 
 
+	/**
+	 * The provided API key was invalid
+	 * 
+	 * @author drt24
+	 *
+	 */
+	public static class InvalidKeyException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    public InvalidKeyException(){
+	    super("Invalid API key.");
+	  }
+	}
 }

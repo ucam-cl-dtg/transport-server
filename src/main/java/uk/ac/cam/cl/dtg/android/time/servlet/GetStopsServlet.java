@@ -53,27 +53,29 @@ public class GetStopsServlet extends HttpServlet
 	throws ServletException, IOException
 	{
 		// Set output type.
-		res.setContentType("application/xml");
+		res.setContentType( ServletUtils.MIME_XML );
 		
 		// Start try block. Any exception results in error for whole request.
 		try {
 			
 			// Check if key is valid
-			if(!KeyManager.isValidKey(req.getParameter("key"),"services")) throw new Exception("Invalid API key.");
+		  ServletUtils.checkKeyForServices(req);
 
 			// Get system time - for timing how long download takes (debug)
-			double t = System.currentTimeMillis();
+			long t = System.currentTimeMillis();
 			
 			// Has the request already been cached?
-			List<BusStop> stops = getCachedResult(req.getParameter("level"));	
+			String level = ServletUtils.getRequiredParameter(req,"level");
+
+			List<BusStop> stops = getCachedResult(level);
 
 			// If not grab from server
 			//TODO: fix
 			if(stops==null){
-				stops = CouncilDataSource.getBusStops(Integer.parseInt(req.getParameter("level")));
-				cacheResult(req.getParameter("level"), stops);
+				stops = CouncilDataSource.getBusStops(Integer.parseInt(level));
+				cacheResult(level, stops);
 			}
-			double dltime = System.currentTimeMillis() - t;
+			long downloadtime = System.currentTimeMillis() - t;
 			
 			// Get the output writer
 			PrintWriter out = res.getWriter();
@@ -130,7 +132,7 @@ public class GetStopsServlet extends HttpServlet
 			writer.writeEndElement();
 
 			/*		writer.writeStartElement("downloadtime");
-			writer.writeCharacters(String.valueOf(dltime));
+			writer.writeCharacters(String.valueOf(downloadtime));
 			writer.writeEndElement();
 
 			writer.writeStartElement("looptime");
@@ -207,6 +209,6 @@ public class GetStopsServlet extends HttpServlet
 
 	public String getServletInfo()
 	{
-		return "BusStopServelet by David Tattersall";
+		return "GetStopsServlet by David Tattersall";
 	}
 }

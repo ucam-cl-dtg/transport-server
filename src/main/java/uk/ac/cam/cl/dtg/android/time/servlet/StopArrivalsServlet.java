@@ -63,22 +63,20 @@ public class StopArrivalsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)	throws ServletException, IOException
 	{
 		// Set output type.
-		res.setContentType("application/xml");
+		res.setContentType( ServletUtils.MIME_XML );
 		
 		// Start try block. Any exception results in error for whole request.
 		try {
 			
 			// Check if key is valid
-			if(!KeyManager.isValidKey(req.getParameter("key"),"services")) throw new Exception("Invalid API key.");
+		  ServletUtils.checkKeyForServices(req);
 		
-			// Check to see if we specified a stopref
-			if(req.getParameter("atco")==null) throw new Exception("Stop reference must be specified");
-			String ATCOCode = req.getParameter("atco");
+			// Check to see if we specified a stopref atco
+			String ATCOCode = ServletUtils.getRequiredParameter(req,"atco");
 			
 			// Have we specified number of arrivals to fetch?
-			int numarrivals = DEFAULT_ARRIVAL_COUNT;			
-			if(req.getParameter("numarrivals") != null) numarrivals = Integer.parseInt(req.getParameter("numarrivals"));
-				
+			int numarrivals = ServletUtils.getIntParameter(req, "numarrivals", DEFAULT_ARRIVAL_COUNT);
+
 			// Get the relevant handler out of database
 			lookupHandler.setString(1,ATCOCode);
 			ResultSet rs = lookupHandler.executeQuery();

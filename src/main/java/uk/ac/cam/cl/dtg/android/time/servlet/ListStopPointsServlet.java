@@ -70,20 +70,19 @@ public class ListStopPointsServlet extends HttpServlet {
 	throws ServletException, IOException
 	{
 		// Set output type.
-		res.setContentType("application/xml");
+		res.setContentType( ServletUtils.MIME_XML );
 		
 		// Start try block. Any exception results in error for whole request.
 		try {
 			
 			// Check if key is valid
-			if(!KeyManager.isValidKey(req.getParameter("key"),"services")) throw new Exception("Invalid API key.");
+		  ServletUtils.checkKeyForServices(req);
 			
 			// New statement object to do query
 			Statement st = conn.createStatement();
 			
 			// Check to see if a group ref was supplied
-			String groupref = req.getParameter("groupref");
-			if(groupref==null) throw new Exception("Must supply a groupref.");
+			String groupref = ServletUtils.getRequiredParameter(req,"groupref");
 			
 			// Set group ref parameter and get results
 			searchStatement.setString(1, groupref);			

@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
+
+import uk.ac.cam.cl.dtg.android.time.servlet.KeyManager.InvalidKeyException;
 
 /**
  * Class containing some useful service-wide stuff.
@@ -16,6 +19,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 public class ServletUtils {
 
+  public static final String MIME_XML = "application/xml";
 	/**
 	 * Outputs an exception in a nice format.
 	 * 
@@ -50,6 +54,68 @@ public class ServletUtils {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
 	}
+
+	/**
+	 * Get the parameter name from the request req and if it is null throw a RequiredParameterException
+	 * @param req
+	 * @param name
+	 * @return the parameter value, not null
+	 * @throws RequiredParameterException if the parameter is not specified
+	 */
+	public static String getRequiredParameter(HttpServletRequest req, String name) throws RequiredParameterException {
+	  String answer = req.getParameter(name);
+	  if (answer == null){
+	    throw new RequiredParameterException(name);
+	  }
+	  return answer;
+	}
+
+  public static void checkKeyForServices(HttpServletRequest req) throws InvalidKeyException, RequiredParameterException {
+    KeyManager.isValidForServices(ServletUtils.getRequiredParameter(req,"key"));    
+  }
+
+  public static int getIntParameter(HttpServletRequest req, String name, int defaultValue)
+      throws InvalidParameterException {
+    String value = req.getParameter(name);
+    if (name == null) {
+      return defaultValue;
+    } else {
+      try {
+        return Integer.parseInt(value);
+      } catch (NumberFormatException e) {
+        throw new InvalidParameterException("Expected parameter " + name
+            + " to be an integer but was: " + value);
+      }
+    }
+  }
+
+  public static class BadParameterException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    public BadParameterException(String message) {
+      super(message);
+    }
+  }
+
+  /**
+   * Thrown if a required parameter is not specified.
+   * @author drt24
+   *
+   */
+  public static class RequiredParameterException extends BadParameterException {
+    private static final long serialVersionUID = 1L;
+
+    public RequiredParameterException(String name){
+      super("Must supply "+ name +" parameter.");
+    }
+  }
+
+  public static class InvalidParameterException extends BadParameterException {
+    private static final long serialVersionUID = 1L;
+
+    public InvalidParameterException(String message) {
+      super(message);
+    }
+  }
 }

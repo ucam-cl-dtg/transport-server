@@ -39,26 +39,25 @@ public class FindStopGroupsServlet extends HttpServlet
 	throws ServletException, IOException
 	{
 		// Set output type.
-		res.setContentType("application/xml");
+		res.setContentType( ServletUtils.MIME_XML );
 		
 		// Start try block. Any exception results in error for whole request.
 		try {
 			
 			// Check if key is valid
-			if(!KeyManager.isValidKey(req.getParameter("key"),"services")) throw new Exception("Invalid API key.");
+		  ServletUtils.checkKeyForServices(req);
 			
 			// Check to see if a method was supplied
-			String method = req.getParameter("method");
-			if(method==null) throw new Exception("Must supply method parameter.");
+			String method = ServletUtils.getRequiredParameter(req,"method");
+
 			if(!(method.equals("near") || method.equals("within"))) throw new Exception("Invalid method: either 'near' or 'within'");
 			
 			// Have we specified number of arrival to fetch?
-			int numresults = DEFAULT_RESULTS_RETURNED;			
-			if(req.getParameter("numresults") != null) numresults = Integer.parseInt(req.getParameter("numresults"));
+			int numresults = ServletUtils.getIntParameter(req, "numresults", DEFAULT_RESULTS_RETURNED);	
 
 			// Have we specified a search radius?
-			int radius = DEFAULT_SEARCH_RADIUS;			
-			if(req.getParameter("radius") != null) radius = Integer.parseInt(req.getParameter("radius"));
+			int radius = ServletUtils.getIntParameter(req, "radius", DEFAULT_SEARCH_RADIUS);
+
 			double radiusInDegrees = ((double)radius) * 0.0000111111111;
 			
 			// Get connection to DB
@@ -72,11 +71,8 @@ public class FindStopGroupsServlet extends HttpServlet
 			// Deal with 'near' query			
 			if(method.equals("near")) {
 				
-				// Require lat/long
-				if(req.getParameter("lat") == null || req.getParameter("long") == null) throw new Exception("Lat / Long required.");
-				
-				double lat = Double.parseDouble(req.getParameter("lat"));
-				double lon = Double.parseDouble(req.getParameter("long"));
+				double lat = Double.parseDouble(ServletUtils.getRequiredParameter(req,"lat"));
+				double lon = Double.parseDouble(ServletUtils.getRequiredParameter(req,"long"));
 								
 				sql = "select name,group_ref, lat, long, st_distance_sphere(geopoint, ST_GeomFromText('POINT(" + lon +" "+lat+")', -1)) as dist";
 				sql = sql + " from naptan_groups";
@@ -88,18 +84,11 @@ public class FindStopGroupsServlet extends HttpServlet
 			
 			// Deal with 'near' query			
 			if(method.equals("within")) {
-				
-				// Require left/right/top/bottom
-				if(req.getParameter("left") == null
-						|| req.getParameter("right") == null
-						|| req.getParameter("top") == null
-						|| req.getParameter("bottom") == null)
-					throw new Exception("Bounding box co-ordinates required.");
-				
-				double left = Double.parseDouble(req.getParameter("left"));
-				double right = Double.parseDouble(req.getParameter("right"));
-				double top = Double.parseDouble(req.getParameter("top"));
-				double bottom = Double.parseDouble(req.getParameter("bottom"));
+
+				double left = Double.parseDouble(ServletUtils.getRequiredParameter(req,"left"));
+				double right = Double.parseDouble(ServletUtils.getRequiredParameter(req,"right"));
+				double top = Double.parseDouble(ServletUtils.getRequiredParameter(req,"top"));
+				double bottom = Double.parseDouble(ServletUtils.getRequiredParameter(req,"bottom"));
 	
 				sql = "select name,group_ref, lat, long";
 				sql = sql + " from naptan_groups";
@@ -192,6 +181,6 @@ public class FindStopGroupsServlet extends HttpServlet
 	
 	public String getServletInfo()
 	{
-		return "BusStopServlet by David Tattersall";
+		return "FindStopGroupsServlet by David Tattersall";
 	}
 }
