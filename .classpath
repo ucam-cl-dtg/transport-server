@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/bin/bootstrap.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/bin/commons-daemon.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/bin/tomcat-juli.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/annotations-api.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/catalina.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/catalina-ant.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/catalina-ha.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/catalina-tribes.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/el-api.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/jasper.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/jasper-el.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/jasper-jdt.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/tomcat-coyote.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/tomcat-dbcp.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/tomcat-i18n-es.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/tomcat-i18n-fr.jar"/>
-	<classpathentry kind="lib" path="/home/dt316/Desktop/tomcat/apache-tomcat-6.0.20/lib/tomcat-i18n-ja.jar"/>
-	<classpathentry kind="lib" path="web/WEB-INF/lib/TIMEBase.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
