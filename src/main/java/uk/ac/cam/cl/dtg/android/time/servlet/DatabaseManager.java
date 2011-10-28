@@ -21,7 +21,7 @@ public class DatabaseManager {
 	 * Returns a connection to the database
 	 * @return
 	 */
-	public static Connection getConnection() {
+	public static Connection getConnection() throws SQLException {
 
 		if(conn == null) {
 
@@ -45,13 +45,13 @@ public class DatabaseManager {
 				System.err.println ("Unable to load database driver");
 				System.err.println ("Details : " + cnfe);
 
-				return null;
+				throw new SQLException("Unable to load database driver", cnfe);
 
 			} catch (Exception e) {
 
 				System.err.println("Exception during EnsureConnection: "+e);
 
-				return null;
+				throw new SQLException("Exception during getConnection", e);
 
 			}
 			

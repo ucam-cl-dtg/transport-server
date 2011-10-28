@@ -36,24 +36,22 @@ public class StopArrivalsServlet extends HttpServlet {
 	public void init() throws ServletException {
 
 		super.init();
-		
-		// Get connection to DB
-		conn = DatabaseManager.getConnection();
-
-		// Define our prepared query
-		String sql = "select handler from available_stops"
-			+ " left outer join data_providers"
-			+ " on data_providers.provider=available_stops.data_source"
-			+ " where available_stops.atco_code=?";
-		
 		try {
-			
-			lookupHandler = conn.prepareStatement(sql);
-			
+		  // Get connection to DB
+		  conn = DatabaseManager.getConnection();
+
+		  // Define our prepared query
+		  String sql = "select handler from available_stops"
+		      + " left outer join data_providers"
+		      + " on data_providers.provider=available_stops.data_source"
+		      + " where available_stops.atco_code=?";
+
+		  lookupHandler = conn.prepareStatement(sql);
+
 		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			
+
+		  e.printStackTrace();
+
 		}
 
 	}

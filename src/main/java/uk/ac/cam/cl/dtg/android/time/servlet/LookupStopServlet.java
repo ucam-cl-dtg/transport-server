@@ -40,51 +40,52 @@ public class LookupStopServlet extends HttpServlet
 		super.init();
 
 		// Get connection to DB
-		conn = DatabaseManager.getConnection();
-
-		// Query by ATCO
-		String sqlATCO = "select"
-			+ " naptan_extended_stop_info.atco_code AS atco_code,"
-			+ " available_stops.stop_name AS ds_name,"
-			+ " naptan_extended_stop_info.lat AS lat,"
-			+ " naptan_extended_stop_info.long AS long,"
-			+ " naptan_extended_stop_info.naptan_code AS naptan_code," 
-			+ " naptan_extended_stop_info.common_name AS common_name,"
-			+ " naptan_extended_stop_info.short_name AS short_name,"
-			+ " naptan_extended_stop_info.landmark AS landmark,"
-			+ " naptan_extended_stop_info.street AS street,"
-			+ " naptan_extended_stop_info.location_indicator AS location_indicator,"
-			+ " naptan_extended_stop_info.bearing AS bearing"
-			+ " from"
-			+ " naptan_extended_stop_info"
-			+ " left outer join available_stops"
-			+ " on (available_stops.atco_code = naptan_extended_stop_info.atco_code)"
-			+ " where naptan_extended_stop_info.atco_code=? limit 1";
-		
-		// Query by NaPTAN
-		String sqlNaPTAN = "select"
-			+ " naptan_extended_stop_info.atco_code AS atco_code,"
-			+ " available_stops.stop_name AS ds_name,"
-			+ " naptan_extended_stop_info.lat AS lat,"
-			+ " naptan_extended_stop_info.long AS long,"
-			+ " naptan_extended_stop_info.naptan_code AS naptan_code," 
-			+ " naptan_extended_stop_info.common_name AS common_name,"
-			+ " naptan_extended_stop_info.short_name AS short_name,"
-			+ " naptan_extended_stop_info.landmark AS landmark,"
-			+ " naptan_extended_stop_info.street AS street,"
-			+ " naptan_extended_stop_info.location_indicator AS location_indicator,"
-			+ " naptan_extended_stop_info.bearing AS bearing"
-			+ " from"
-			+ " naptan_extended_stop_info"
-			+ " left outer join available_stops"
-			+ " on (available_stops.atco_code = naptan_extended_stop_info.atco_code)"
-			+ " where naptan_extended_stop_info.naptan_code=? limit 1";
-		
 		try {
-			
-			searchByATCO = conn.prepareStatement(sqlATCO);
-			searchByNaPTAN = conn.prepareStatement(sqlNaPTAN);
-			
+		  conn = DatabaseManager.getConnection();
+
+		  // Query by ATCO
+		  String sqlATCO = "select"
+		      + " naptan_extended_stop_info.atco_code AS atco_code,"
+		      + " available_stops.stop_name AS ds_name,"
+		      + " naptan_extended_stop_info.lat AS lat,"
+		      + " naptan_extended_stop_info.long AS long,"
+		      + " naptan_extended_stop_info.naptan_code AS naptan_code," 
+		      + " naptan_extended_stop_info.common_name AS common_name,"
+		      + " naptan_extended_stop_info.short_name AS short_name,"
+		      + " naptan_extended_stop_info.landmark AS landmark,"
+		      + " naptan_extended_stop_info.street AS street,"
+		      + " naptan_extended_stop_info.location_indicator AS location_indicator,"
+		      + " naptan_extended_stop_info.bearing AS bearing"
+		      + " from"
+		      + " naptan_extended_stop_info"
+		      + " left outer join available_stops"
+		      + " on (available_stops.atco_code = naptan_extended_stop_info.atco_code)"
+		      + " where naptan_extended_stop_info.atco_code=? limit 1";
+
+		  // Query by NaPTAN
+		  String sqlNaPTAN = "select"
+		      + " naptan_extended_stop_info.atco_code AS atco_code,"
+		      + " available_stops.stop_name AS ds_name,"
+		      + " naptan_extended_stop_info.lat AS lat,"
+		      + " naptan_extended_stop_info.long AS long,"
+		      + " naptan_extended_stop_info.naptan_code AS naptan_code," 
+		      + " naptan_extended_stop_info.common_name AS common_name,"
+		      + " naptan_extended_stop_info.short_name AS short_name,"
+		      + " naptan_extended_stop_info.landmark AS landmark,"
+		      + " naptan_extended_stop_info.street AS street,"
+		      + " naptan_extended_stop_info.location_indicator AS location_indicator,"
+		      + " naptan_extended_stop_info.bearing AS bearing"
+		      + " from"
+		      + " naptan_extended_stop_info"
+		      + " left outer join available_stops"
+		      + " on (available_stops.atco_code = naptan_extended_stop_info.atco_code)"
+		      + " where naptan_extended_stop_info.naptan_code=? limit 1";
+
+
+
+		  searchByATCO = conn.prepareStatement(sqlATCO);
+		  searchByNaPTAN = conn.prepareStatement(sqlNaPTAN);
+
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

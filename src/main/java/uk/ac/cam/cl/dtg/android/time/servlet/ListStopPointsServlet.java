@@ -32,37 +32,34 @@ public class ListStopPointsServlet extends HttpServlet {
 		super.init();
 		
 		// Get connection to DB
-		conn = DatabaseManager.getConnection();
-		
-		// Initialise the PreparedStatement with the (long) select
-		String sql = "select"
-			+ " naptan_group_memberships.atco_code AS atco_code,"
-			+ " available_stops.stop_name AS ds_name,"
-			+ " naptan_extended_stop_info.lat AS lat,"
-			+ " naptan_extended_stop_info.long AS long,"
-			+ " naptan_extended_stop_info.naptan_code AS naptan_code," 
-			+ " naptan_extended_stop_info.common_name AS common_name,"
-			+ " naptan_extended_stop_info.short_name AS short_name,"
-			+ " naptan_extended_stop_info.landmark AS landmark,"
-			+ " naptan_extended_stop_info.street AS street,"
-			+ " naptan_extended_stop_info.location_indicator AS location_indicator,"
-			+ " naptan_extended_stop_info.bearing AS bearing"
-			+ " from"
-			+ " naptan_group_memberships"
-			+ " left outer join available_stops"
-			+ " on (available_stops.atco_code = naptan_group_memberships.atco_code)"
-			+ " left outer join naptan_extended_stop_info"
-			+ " on (naptan_group_memberships.atco_code = naptan_extended_stop_info.atco_code)"
-		    + " where group_ref=?";
-		
 		try {
-			searchStatement = conn.prepareStatement(sql);
+		  conn = DatabaseManager.getConnection();
+
+		  // Initialise the PreparedStatement with the (long) select
+		  String sql = "select"
+		      + " naptan_group_memberships.atco_code AS atco_code,"
+		      + " available_stops.stop_name AS ds_name,"
+		      + " naptan_extended_stop_info.lat AS lat,"
+		      + " naptan_extended_stop_info.long AS long,"
+		      + " naptan_extended_stop_info.naptan_code AS naptan_code," 
+		      + " naptan_extended_stop_info.common_name AS common_name,"
+		      + " naptan_extended_stop_info.short_name AS short_name,"
+		      + " naptan_extended_stop_info.landmark AS landmark,"
+		      + " naptan_extended_stop_info.street AS street,"
+		      + " naptan_extended_stop_info.location_indicator AS location_indicator,"
+		      + " naptan_extended_stop_info.bearing AS bearing"
+		      + " from"
+		      + " naptan_group_memberships"
+		      + " left outer join available_stops"
+		      + " on (available_stops.atco_code = naptan_group_memberships.atco_code)"
+		      + " left outer join naptan_extended_stop_info"
+		      + " on (naptan_group_memberships.atco_code = naptan_extended_stop_info.atco_code)"
+		      + " where group_ref=?";
+
+		  searchStatement = conn.prepareStatement(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-
 	}
 
 	/**
