@@ -1,6 +1,5 @@
 package uk.ac.cam.cl.dtg.android.time.servlet;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -58,20 +57,28 @@ public class ServletUtils {
 
 	/**
 	 * Get the parameter name from the request req and if it is null throw a RequiredParameterException
-	 * @param req
-	 * @param name
+	 * @param req is the HttpServletRequest object for this request
+	 * @param name of the HTTP request value 
+	 * @param validOps if provided will ensure that the returned String is one of these values
 	 * @return the parameter value, not null
 	 * @throws RequiredParameterException if the parameter is not specified
 	 */
-	public static String getRequiredParameter(HttpServletRequest req, String name) throws RequiredParameterException {
+	public static String getRequiredParameter(HttpServletRequest req, String name, String... validOpts) throws RequiredParameterException {
 	  String answer = req.getParameter(name);
 	  if (answer == null){
 	    throw new RequiredParameterException(name);
 	  }
-	  return answer;
+	  if (validOpts != null && validOpts.length != 0) {
+		  for(String s : validOpts) 
+			  if (answer.equals(s)) return s;
+	  		throw new RequiredParameterException(name);
+	  }
+	  else {
+		  return answer;
+	  }
 	}
 
-  public static void checkKeyForServices(HttpServletRequest req) throws InvalidKeyException, RequiredParameterException {
+	public static void checkKeyForServices(HttpServletRequest req) throws InvalidKeyException, RequiredParameterException {
     KeyManager.isValidForServices(ServletUtils.getRequiredParameter(req,"key"));    
   }
 
