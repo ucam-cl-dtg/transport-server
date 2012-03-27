@@ -2,6 +2,7 @@ package uk.ac.cam.cl.dtg.android.time.servlet;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,8 +74,7 @@ public class ServletUtils {
 	 * @throws InvalidParameterException
 	 */
 	public static String getRequiredParameter(HttpServletRequest req,
-			String name, String... validOpts)
-			throws BadParameterException {
+			String name, String... validOpts) throws BadParameterException {
 		String answer = req.getParameter(name);
 		if (answer == null) {
 			throw new RequiredParameterException(name);
@@ -90,10 +90,10 @@ public class ServletUtils {
 		}
 	}
 
-	public static void checkKeyForServices(HttpServletRequest req)
+	public static void checkKeyForServices(HttpServletRequest req, Connection db)
 			throws InvalidKeyException, BadParameterException {
-		KeyManager.isValidForServices(ServletUtils.getRequiredParameter(req,
-				"key"));
+		KeyManager.isValidForServices(
+				ServletUtils.getRequiredParameter(req, "key"), db);
 	}
 
 	public static int getIntParameter(HttpServletRequest req, String name,
