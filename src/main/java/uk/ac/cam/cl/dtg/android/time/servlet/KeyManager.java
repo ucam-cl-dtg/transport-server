@@ -62,7 +62,7 @@ public class KeyManager {
 	public static void isValidForServices(String key, Connection db)
 			throws InvalidKeyException {
 		if (key == null || !isValidKey(key, "services", db))
-			throw new InvalidKeyException();
+			throw new InvalidKeyException(key);
 	}
 
 	/**
@@ -74,8 +74,8 @@ public class KeyManager {
 	public static class InvalidKeyException extends Exception {
 		private static final long serialVersionUID = 1L;
 
-		public InvalidKeyException() {
-			super("Invalid API key.");
-		}
+    public InvalidKeyException(String key){
+	    super("Invalid API key: " + key);
+	  }
 	}
 }
