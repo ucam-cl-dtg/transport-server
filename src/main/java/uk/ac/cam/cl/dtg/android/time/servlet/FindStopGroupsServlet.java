@@ -145,7 +145,8 @@ public class FindStopGroupsServlet extends OmniBusServlet {
 		}
 	}
 
-	public String getServletInfo() {
+	@Override
+  public String getServletInfo() {
 		return "FindStopGroupsServlet by David Tattersall";
 	}
 }

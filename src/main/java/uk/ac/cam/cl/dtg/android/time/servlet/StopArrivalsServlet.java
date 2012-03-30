@@ -88,7 +88,8 @@ public class StopArrivalsServlet extends OmniBusServlet {
 		writer.close("response");
 	}
 
-	public String getServletInfo() {
+	@Override
+  public String getServletInfo() {
 		return "Retrieves live arrivals for a stop. By David Tattersall";
 	}
 }

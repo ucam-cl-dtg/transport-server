@@ -178,7 +178,8 @@ public class XMLWriter {
 		}
 	}
 
-	public String toString() {
+	@Override
+  public String toString() {
 		flush();
 		return result.toString();
 	}

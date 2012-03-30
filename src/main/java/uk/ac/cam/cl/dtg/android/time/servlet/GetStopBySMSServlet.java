@@ -38,7 +38,8 @@ public class GetStopBySMSServlet extends OmniBusServlet {
 		writer.close("response");
 	}
 
-	public String getServletInfo() {
+	@Override
+  public String getServletInfo() {
 		return "GetStopByInfoServlet by David Tattersall";
 	}
 }

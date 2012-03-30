@@ -102,7 +102,8 @@ public class GetStopsServlet extends OmniBusServlet {
 		cachedResults.put(key, new Cached(data, System.currentTimeMillis()));
 	}
 
-	public String getServletInfo() {
+	@Override
+  public String getServletInfo() {
 		return "GetStopsServlet by David Tattersall";
 	}
 }

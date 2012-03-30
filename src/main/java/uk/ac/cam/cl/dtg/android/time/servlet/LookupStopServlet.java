@@ -89,7 +89,8 @@ public class LookupStopServlet extends StopPointsServlet {
 		throw new Exception("Must supply either an ATCO or NaPTAN code.");
 	}
 
-	public String getServletInfo() {
+	@Override
+  public String getServletInfo() {
 		return "GetStopByInfoServlet by David Tattersall";
 	}
 }

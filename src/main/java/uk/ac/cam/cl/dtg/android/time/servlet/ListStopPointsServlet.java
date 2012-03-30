@@ -55,7 +55,8 @@ public class ListStopPointsServlet extends StopPointsServlet {
 		}
 	}
 
-	public String getServletInfo() {
+	@Override
+  public String getServletInfo() {
 		return "BusStopServlet by David Tattersall";
 	}
 }
