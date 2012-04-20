@@ -65,7 +65,7 @@
 				<artifactId>tomcat6-maven-plugin</artifactId>
 				<version>2.0-beta-1</version>
 				<configuration>
-					<url>http://svr-acr31-minibus:8080/manager/html</url>
+					<url>http://svr-acr31-minibus:8443/manager/html</url>
 					<server>svr-acr31-minibus</server>
 					<path>/${project.artifactId}</path>
 					<username>admin</username>
