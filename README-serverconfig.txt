@@ -1,7 +1,7 @@
 sudo apt-get install tomcat6 tomcat6-admin libpg-java
 sudo ln -s /usr/share/java/postgresql.jar /usr/share/tomcat6/lib/
 
-sudo ufw allow proto tcp from any to any port 8080
+sudo ufw allow proto tcp from any to any port 8443
 sudo /etc/init.d/tomcat6 start
 sudo apt-get install postgresql-8.4 postgresql-8.4-postgis 
 
