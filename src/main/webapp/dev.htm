@@ -6,111 +6,140 @@
 </head>
 <body>
 
-<div id="bodyPan">
+	<div id="bodyPan">
 
-	<h1>OmniBus.</h1>
-	<div>
-	<a href="index.htm"><h2 style="display:inline">home</a> : <h2 style="display:inline">Developer information</h2>
-	</div>
-	
-	<hr />
+		<h1>OmniBus.</h1>
+		<div>
+			<h2 style="display: inline">
+				<a href="index.htm">home</a>
+			</h2>
+			:
+			<h2 style="display: inline">Developer information</h2>
+		</div>
 
-	<h3>Connecting to the services</h3>
-	
-	<p>The OmniBus services accessed as a REST service. Each service is accessible through the URL:
-	
-	<pre>http://www.cl.cam.ac.uk/research/dtg/transport/SERVICE_NAME</pre>
-	
-	where 'SERVICE_NAME' is replaced with the service name, given below. The services should be accessed through HTTP GET, and parameters passed in the query string.</p>
-  
-  	<h3>API key</h3>
-  	
-  	<p>To allow us to control access to OmniBus during these early stages, you will request an API key to access the services. <a href="signup.htm">See here</a> for information on acquiring a key.</p>
+		<hr />
 
-	<h3>What you can do with OmniBus</h3>
-	
-	<p>OmniBus allows developers to:
-	
-	<ul>
-		<li>Query a nationwide database of bus stops via</li>
+		<h3>Connecting to the services</h3>
+
+		<p>The OmniBus services accessed as a REST service. Each service
+			is accessible through the URL:</p>
+		<pre>http://www.cl.cam.ac.uk/research/dtg/transport/SERVICE_NAME</pre>
+		<p>where 'SERVICE_NAME' is replaced with the service name, given
+			below. The services should be accessed through HTTP GET, and
+			parameters passed in the query string.</p>
+
+		<h3>API key</h3>
+
+		<p>
+			To allow us to control access to OmniBus during these early stages,
+			you will request an API key to access the services. <a
+				href="signup.htm">See here</a> for information on acquiring a key.
+		</p>
+
+		<h3>What you can do with OmniBus</h3>
+
+		<p>OmniBus allows developers to:</p>
 		<ul>
-			<li>proximity to a certain position,</li>
-			<li>over a bounding box</li>
-			<li>by NaPTAN/ATCO code</li>
+			<li>Query a nationwide database of bus stops via</li>
+			<li>
+				<ul>
+					<li>proximity to a certain position,</li>
+					<li>over a bounding box</li>
+					<li>by NaPTAN/ATCO code</li>
+				</ul>
+			</li>
+			<li>Request a list of live arrivals at a certain bus stop, where
+				data is available.</li>
 		</ul>
-		<li>Request a list of live arrivals at a certain bus stop, where data is available.</li>
-	</ul>
-	
-	</p>
-	
-	<h3>How the data is structured</h3>
-	
-	<p>Every point at which you may board public transport in the UK is loaded into OmniBus. This means that in many cases what a passenger will see as one logical bus stop is often represented by many entities in our database (two points across the road from each other, or one point for each bay in a bus station).</p>
-	<p>To combat this problem all bus stops, where data was available, have been grouped into stop gGroups. This is the entity a passenger knows as a 'bus stop', with the individual boarding stop points within a stop group being a distinction only your application should make internally.</p>
-	
-	<hr />
-	
-	
-	
-	
-	<h2>FindStopGroups</h2>
-	
-	<pre>URL: .../FindStopGroups</pre>
-	
-	<h3>What does it do?</h3>
-	
-	<p>Returns all stop groups matching the given criteria.</p>
-	
-	<h3>Parameters</h3>
-	
-	<p>Two modes of query: either search for stops near a certain point or return stops within a bounding box.</p>
-	<p><b>Find stop groups near a given point:</b>
-	<dl>
-		<dt>key<dt>
-		<dd>Your API key (required)</dd>
-		
-		<dt>method</dt>
-		<dd>Set to 'near' for this mode (required)</dd>
-		
-		<dt>lat</dt>
-		<dd>Latitude of given point (required)</dd>
-		
-		<dt>long</dt>
-		<dd>Longitude of given point (required)</dd>
-		
-		<dt>numresults</dt>
-		<dd>How many results to return (optional, default = 10)</dd>
-		
-		<dt>radius</dt>
-		<dd>A nominal radius to search within from the given point. A value of 10,000 is roughly 10km although since all calculations are on a lat/long grid inaccuracy will occur - we suggest you overstate your radius somewhat (but don't set this to incredibly high values - the radius culling is essential to making your query fast!) (optional, default = 10,000 ~ 10km search radius)</dd>
-		
-	</dl>
-	Example:
-	<pre>FindStopGroups?key=KEY&method=near&lat=52.2&long=0.09&numresults=30&radius=5000</pre>
-	<b>Find stop groups within a bounding box:</b>
-	<i>Note: a maximum of 10,000 stops groups will be returned by this method. If you require wider coverage, please break up your query</i>
-		<dl>
-		<dt>key<dt>
-		<dd>Your API key (required)</dd>
-		
-		<dt>method</dt>
-		<dd>Set to 'within' for this mode (required)</dd>
-		
-		<dt>left / top / right / bottom</dt>
-		<dd>latitude (top, bottom) and longitude (left, right) values which define the bounding box within which you want to search for stop groups. (required)</dd>
-		
-	</dl>
-	Example (all bus stops in the village of Coton):
-	<pre>FindStopGroups?key=KEY&method=within&left=0.051241&bottom=52.204910&right=0.073557&top=52.212537</pre>
 
-	</p>
-	
-	<h3>Sample XML response</h3>
-	
-	<div style="width:100%; float:center;">
-	<div style="float:left; width:49%;">
-	
-	<pre>
+		<h3>How the data is structured</h3>
+
+		<p>Every point at which you may board public transport in the UK
+			is loaded into OmniBus. This means that in many cases what a
+			passenger will see as one logical bus stop is often represented by
+			many entities in our database (two points across the road from each
+			other, or one point for each bay in a bus station).</p>
+		<p>To combat this problem all bus stops, where data was available,
+			have been grouped into stop gGroups. This is the entity a passenger
+			knows as a 'bus stop', with the individual boarding stop points
+			within a stop group being a distinction only your application should
+			make internally.</p>
+
+		<hr />
+
+
+
+
+		<h2>FindStopGroups</h2>
+
+		<pre>URL: .../FindStopGroups</pre>
+
+		<h3>What does it do?</h3>
+
+		<p>Returns all stop groups matching the given criteria.</p>
+
+		<h3>Parameters</h3>
+
+		<p>Two modes of query: either search for stops near a certain
+			point or return stops within a bounding box.</p>
+		<p>
+			<b>Find stop groups near a given point:</b>
+		</p>
+		<dl>
+			<dt>key</dt>
+			<dd>Your API key (required)</dd>
+
+			<dt>method</dt>
+			<dd>Set to 'near' for this mode (required)</dd>
+
+			<dt>lat</dt>
+			<dd>Latitude of given point (required)</dd>
+
+			<dt>long</dt>
+			<dd>Longitude of given point (required)</dd>
+
+			<dt>numresults</dt>
+			<dd>How many results to return (optional, default = 10)</dd>
+
+			<dt>radius</dt>
+			<dd>A nominal radius to search within from the given point. A
+				value of 10,000 is roughly 10km although since all calculations are
+				on a lat/long grid inaccuracy will occur - we suggest you overstate
+				your radius somewhat (but don't set this to incredibly high values -
+				the radius culling is essential to making your query fast!)
+				(optional, default = 10,000 ~ 10km search radius)</dd>
+
+		</dl>
+		<p>Example:</p>
+		<pre>FindStopGroups?key=KEY&amp;method=near&amp;lat=52.2&amp;long=0.09&amp;numresults=30&amp;radius=5000</pre>
+		<p>
+			<b>Find stop groups within a bounding box:</b> <i>Note: a maximum
+				of 10,000 stops groups will be returned by this method. If you
+				require wider coverage, please break up your query</i>
+		</p>
+		<dl>
+			<dt>key</dt>
+			<dd>Your API key (required)</dd>
+
+			<dt>method</dt>
+			<dd>Set to 'within' for this mode (required)</dd>
+
+			<dt>left / top / right / bottom</dt>
+			<dd>latitude (top, bottom) and longitude (left, right) values
+				which define the bounding box within which you want to search for
+				stop groups. (required)</dd>
+
+		</dl>
+		<p>Example (all bus stops in the village of Coton):</p>
+		<pre>FindStopGroups?key=KEY&amp;method=within&amp;left=0.051241&amp;bottom=52.204910&amp;right=0.073557&amp;top=52.212537</pre>
+
+
+		<h3>Sample XML response</h3>
+
+		<div style="width: 100%; float: center;">
+			<div style="float: left; width: 49%;">
+
+				<pre>
 &lt;response&gt;
   &lt;groups&gt;
     &lt;group&gt;
@@ -128,50 +157,57 @@
 &lt;/response&gt;
 
 	</pre>
-	
-	</div>
-	<div style="float:left;width:50%">
 
-	<p>The response is fairly self-explanatory with each group listed with it's group reference, name, positional information and distance in metres from the point that was passed (if method was set to 'near').</p>
-	
-	</div>
-	
-	<div style="clear:both;"></div>
-	</div>
-	
-	<hr />	
-	
-	<h2>ListStopPoints</h2>
-	
-	<pre>URL: .../ListStopPoints</pre>
-	
-	<h3>What does it do?</h3>
-	
-	<p>Takes a group reference and lists all stops that belong within this group. For example, a group may contain just one stop, two stops if the group represents a pair of stops either side of a road, or many stops if the group represents an feature such as a bus station.</p>
-	
-	<h3>Parameters</h3>
-	
-	<p>Two modes of query: either search for stops near a certain point or return stops within a bounding box.</p>
-	
-	<dl>
-		<dt>key<dt>
-		<dd>Your API key (required)</dd>
-		
-		<dt>groupref</dt>
-		<dd>The group reference for the stop group in question (required)</dd>
-				
-	</dl>
-	
-	Example (Drummer St Bus Station, Cambridge):
-	<pre>ListStopPoints?key=KEY&groupref=050GCC000000</pre>
-	
-	
-	<h3>Sample XML response</h3>
-	
-	<div style="width:100%; float:center;">
-	<div style="float:left; width:49%;">
-	
-	<pre>
+			</div>
+			<div style="float: left; width: 50%">
+
+				<p>The response is fairly self-explanatory with each group
+					listed with it's group reference, name, positional information and
+					distance in metres from the point that was passed (if method was
+					set to 'near').</p>
+
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
+
+		<hr />
+
+		<h2>ListStopPoints</h2>
+
+		<pre>URL: .../ListStopPoints</pre>
+
+		<h3>What does it do?</h3>
+
+		<p>Takes a group reference and lists all stops that belong within
+			this group. For example, a group may contain just one stop, two stops
+			if the group represents a pair of stops either side of a road, or
+			many stops if the group represents an feature such as a bus station.</p>
+
+		<h3>Parameters</h3>
+
+		<p>Two modes of query: either search for stops near a certain
+			point or return stops within a bounding box.</p>
+
+		<dl>
+			<dt>key</dt>
+			<dd>Your API key (required)</dd>
+
+			<dt>groupref</dt>
+			<dd>The group reference for the stop group in question
+				(required)</dd>
+		</dl>
+
+		Example (Drummer St Bus Station, Cambridge):
+		<pre>ListStopPoints?key=KEY&amp;groupref=050GCC000000</pre>
+
+
+		<h3>Sample XML response</h3>
+
+		<div style="width: 100%; float: center;">
+			<div style="float: left; width: 49%;">
+
+				<pre>
 &lt;response&gt;
   &lt;stops&gt;
     &lt;stop haslivedata="true"&gt;
@@ -200,81 +236,86 @@
 &lt;/response&gt;
 
 	</pre>
-	
-	</div>
-	<div style="float:right;width:50%">
-	
-	<dl>
-		<dt>haslivedata</dt>
-		<dd>whether the stop has live arrival information available</dd>
-		<dt>atco</dt>
-		<dd>the ATCO code for the stop - a nationwide unique ID for this stop</dd>
-		<dt>naptan</dt>
-		<dd>the NaPTAN code for the stop - unique ID for the stop however some stops don't have a NaPTAN code. This is often quoted as the 'SMS code' for the stop.</dd>
-		<dt>location</dt>
-		<dd>
+
+			</div>
+			<div style="float: right; width: 50%">
+
+				<dl>
+					<dt>haslivedata</dt>
+					<dd>whether the stop has live arrival information available</dd>
+					<dt>atco</dt>
+					<dd>the ATCO code for the stop - a nationwide unique ID for
+						this stop</dd>
+					<dt>naptan</dt>
+					<dd>the NaPTAN code for the stop - unique ID for the stop
+						however some stops don't have a NaPTAN code. This is often quoted
+						as the 'SMS code' for the stop.</dd>
+					<dt>location</dt>
+					<dd>
+						<dl>
+							<dt>lat/long</dt>
+							<dd>position of the individual stop</dd>
+							<dt>street</dt>
+							<dd>the street the stop is on</dd>
+							<dt>landmark</dt>
+							<dd>a landmark that can be used to locate the stop</dd>
+							<dt>indicator</dt>
+							<dd>how the stop relates to the landmark</dd>
+						</dl>
+					</dd>
+					<dt>naming</dt>
+					<dd>
+						<dl>
+							<dt>common</dt>
+							<dd>the standard name for the stop</dd>
+							<dt>short</dt>
+							<dd>a shorter name for the stop - sometimes not available</dd>
+						</dl>
+					</dd>
+					<dt>direction</dt>
+					<dd>the direction the stop faces</dd>
+				</dl>
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
+
+		<hr />
+
+		<h2>GetArrivals</h2>
+
+		<pre>URL: .../GetArrivals</pre>
+
+		<h3>What does it do?</h3>
+
+		<p>Takes the ATCO code for a stop and returns a list of bus
+			services due to arrive at that stop.</p>
+
+		<h3>Parameters</h3>
 		<dl>
-			<dt>lat/long</dt>
-			<dd>position of the individual stop</dd>
-			<dt>street<dt>
-			<dd>the street the stop is on</dd>
-			<dt>landmark<dt>
-			<dd>a landmark that can be used to locate the stop</dd>
-			<dt>indicator</dt>
-			<dd>how the stop relates to the landmark</dd>
+			<dt>key</dt>
+			<dd>Your API key (required)</dd>
+
+			<dt>atco</dt>
+			<dd>ATCO code for the stop in question (required)</dd>
+
+			<dt>numarrivals</dt>
+			<dd>The maximum number of arrivals to return (fewer may be
+				returned if those are all that are available) (optional, default
+				value = 5)</dd>
 		</dl>
-		</dd>
-		<dt>naming</dt>
-		<dd>
-		<dl>
-			<dt>common</dt>
-			<dd>the standard name for the stop</dd>
-			<dt>short<dt>
-			<dd>a shorter name for the stop - sometimes not available</dd>
-		</dl>
-		</dd>
-		<dt>direction</dt>
-		<dd>the direction the stop faces</dd>
-	</dl>
-	</div>
-	
-	<div style="clear:both;"></div>
-	</div>
-	
-	<hr />
-		
-	<h2>GetArrivals</h2>
-	
-	<pre>URL: .../GetArrivals</pre>
-	
-	<h3>What does it do?</h3>
-	
-	<p>Takes the ATCO code for a stop and returns a list of bus services due to arrive at that stop.</p>
-	
-	<h3>Parameters</h3>
-	<dl>
-		<dt>key<dt>
-		<dd>Your API key (required)</dd>
-		
-		<dt>atco</dt>
-		<dd>ATCO code for the stop in question (required)</dd>
-		
-		<dt>numarrivals</dt>
-		<dd>The maximum number of arrivals to return (fewer may be returned if those are all that are available) (optional, default value = 5)</dd>
-				
-	</dl>
-	
-	Example:
-	
-	<pre>GetArrivals?key=sesame&atco=0500CCITY111</pre>
-	
-	
-	<h3>Sample XML response</h3>
-	
-	<div style="width:100%; float:center;">
-	<div style="float:left; width:50%;">
-	
-	<pre>
+
+		Example:
+
+		<pre>GetArrivals?key=sesame&amp;atco=0500CCITY111</pre>
+
+
+		<h3>Sample XML response</h3>
+
+		<div style="width: 100%; float: center;">
+			<div style="float: left; width: 50%;">
+
+				<pre>
 &lt;response&gt;
     &lt;arrivals count="5"&gt;
       &lt;arrival&gt;
@@ -296,76 +337,80 @@
 &lt;/response&gt;
 
 	</pre>
-	
-	</div>
-	<div style="float:right;width:49%">
-	
-	<dl>
-		<dt>count</dt>
-		<dd>how many arrivals were returned</dd>
-		<dt>service</dt>
-		<dd>the service number for this particular arrival</dd>
-		<dt>destination</dt>
-		<dd>the ultimate destination for the bus</dd>
-		<dt>time</dt>
-		<dd>
+
+			</div>
+			<div style="float: right; width: 49%">
+
+				<dl>
+					<dt>count</dt>
+					<dd>how many arrivals were returned</dd>
+					<dt>service</dt>
+					<dd>the service number for this particular arrival</dd>
+					<dt>destination</dt>
+					<dd>the ultimate destination for the bus</dd>
+					<dt>time</dt>
+					<dd>
+						<dl>
+							<dt>millis</dt>
+							<dd>UNIX timestamp (milliseconds since 1970) representing
+								when the bus is estimated to arrive</dd>
+							<dt>textual</dt>
+							<dd>textual representation of the bus arrival time</dd>
+							<dt>isdue</dt>
+							<dd>whether the bus is now due (will arrive imminently)</dd>
+							<dt>islive</dt>
+							<dd>whether this timing information was provided by live
+								data ('true') or timetable data ('false')</dd>
+						</dl>
+					</dd>
+				</dl>
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
+
+		<hr />
+
+		<h2>LookupStop</h2>
+
+		<pre>URL: .../LookupStop</pre>
+
+		<h3>What does it do?</h3>
+
+		<p>Takes the ATCO / NaPTAN code for a stop and returns extended
+			stop info.</p>
+
+		<h3>Parameters</h3>
 		<dl>
-			<dt>millis</dt>
-			<dd>UNIX timestamp (milliseconds since 1970) representing when the bus is estimated to arrive</dd>
-			<dt>textual<dt>
-			<dd>textual representation of the bus arrival time</dd>
-			<dt>isdue<dt>
-			<dd>whether the bus is now due (will arrive imminently)</dd>
-			<dt>islive</dt>
-			<dd>whether this timing information was provided by live data ('true') or timetable data ('false')</dd>
+			<dt>key</dt>
+			<dd>Your API key (required)</dd>
+
+			<dt>atco</dt>
+			<dd>ATCO code for the stop in question (required if naptan not
+				specified)</dd>
+
+			<dt>naptan</dt>
+			<dd>NaPTAN code for the stop in question (required if atco not
+				specified)</dd>
 		</dl>
-		</dd>
-	</dl>
-	</div>
-	
-	<div style="clear:both;"></div>
-	</div>
-	
-	<hr />
-		
-	<h2>LookupStop</h2>
-	
-	<pre>URL: .../LookupStop</pre>
-	
-	<h3>What does it do?</h3>
-	
-	<p>Takes the ATCO / NaPTAN code for a stop and returns extended stop info.</p>
-	
-	<h3>Parameters</h3>
-	<dl>
-		<dt>key<dt>
-		<dd>Your API key (required)</dd>
-		
-		<dt>atco</dt>
-		<dd>ATCO code for the stop in question (required if naptan not specified)</dd>
-		
-		<dt>naptan</dt>
-		<dd>NaPTAN code for the stop in question (required if atco not specified)</dd>
-				
-	</dl>
-	
-	Example:
-	
-	<pre>
-LookupStop?key=sesame&naptan=cmbdajdm
+
+		Example:
+
+		<pre>
+LookupStop?key=sesame&amp;naptan=cmbdajdm
 	
 or
 	
-LookupStop?key=sesame&atco=0500CCITY111
+LookupStop?key=sesame&amp;atco=0500CCITY111
 </pre>
-	
-	
-	<h3>Sample XML response</h3>
-	
-	<div style="width:100%; float:center;">
-	<div style="float:left; width:50%;">
-	
-	<pre>
+
+
+		<h3>Sample XML response</h3>
+
+		<div style="width: 100%; float: center;">
+			<div style="float: left; width: 50%;">
+
+				<pre>
 &lt;response&gt;
   &lt;stop haslivedata="true"&gt;
     &lt;atco&gt;0500CCITY419&lt;/atco&gt;
@@ -388,16 +433,16 @@ LookupStop?key=sesame&atco=0500CCITY111
   &lt;/stop&gt;
 &lt;/response&gt;
 	</pre>
-	
+
+			</div>
+			<div style="float: right; width: 49%">
+
+				<p>see ListStopPoints</p>
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
 	</div>
-	<div style="float:right;width:49%">
-	
-<p>see ListStopPoints</p>
-	</div>
-	
-	<div style="clear:both;"></div>
-	</div>	
-</div>
 
 
 </body>
