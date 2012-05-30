@@ -54,6 +54,11 @@
 		where "name" matches the <param-name> element of one of these initialization 
 		parameters. You can define any number of servlets, including zero. -->
 
+	<servlet>
+		<servlet-name>CronStarterServlet</servlet-name>
+		<servlet-class>uk.ac.cam.cl.dtg.android.time.cron.CronStarterServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
 	<servlet>
 		<servlet-name>BusStopServlet</servlet-name>
