@@ -32,7 +32,7 @@ public class ServletUtils {
 	 * @param res
 	 * @param e
 	 */
-	public static void PrintException(HttpServletResponse res, Exception e) {
+	public static void printException(HttpServletResponse res, Exception e) {
 
 		try {
 			PrintWriter out = res.getWriter();

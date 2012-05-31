@@ -3,6 +3,8 @@ package uk.ac.cam.cl.dtg.android.time.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -15,6 +17,7 @@ import javax.sql.DataSource;
 public abstract class OmniBusServlet extends HttpServlet {
 	private static final long serialVersionUID = 7072675699040951250L;
 
+	protected final Logger log = Logger.getLogger(this.getClass().getCanonicalName());
 	private DataSource dataSource;
 
 	/**
@@ -51,15 +54,18 @@ public abstract class OmniBusServlet extends HttpServlet {
 				try {
 					Connection db = getConnection();
 					try {
+            //log.log(Level.INFO, "Request to: " + req.getRequestURI() + " With query string: " + req.getQueryString());
 						resp.setContentType(ServletUtils.MIME_XML);
 						XMLWriter writer = new XMLWriter(resp.getWriter());
 						xmlGet(req, db, writer);
 						writer.flush();
+            //log.log(Level.INFO, "Request completed.");
 					} finally {
 						db.close();
 					}
 				} catch (Exception e) {
-					ServletUtils.PrintException(resp, e);
+          log.log(Level.WARNING, "Top level exception, telling the user", e);
+					ServletUtils.printException(resp, e);
 				}
 			}
 
