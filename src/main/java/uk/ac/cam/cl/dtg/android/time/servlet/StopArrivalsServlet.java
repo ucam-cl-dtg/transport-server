@@ -34,7 +34,6 @@ public class StopArrivalsServlet extends OmniBusServlet {
 					return (QueryHandler) handlerClass.newInstance();
 				}
 				else {
-					System.out.println("Handler not found");
 					throw new SQLException("Handler not found for stop with ATCO code = "+atcoCode);
 				}
 			} catch (ClassNotFoundException e) {
