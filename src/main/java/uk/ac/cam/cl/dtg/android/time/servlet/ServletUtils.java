@@ -104,7 +104,7 @@ public class ServletUtils {
 	public static int getIntParameter(HttpServletRequest req, String name,
 			int defaultValue) throws InvalidParameterException {
 		String value = req.getParameter(name);
-		if (name == null) {
+		if (value == null) {
 			return defaultValue;
 		} else {
 			try {
