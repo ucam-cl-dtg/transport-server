@@ -71,17 +71,17 @@ public class FindStopGroupsServlet extends OmniBusServlet {
 				+ "group_ref,"
 				+ "lat,"
 				+ "long,"
-				+ "st_distance_sphere(geopoint, ST_GeomFromText('POINT(? ?)',-1)) as dist "
+				+ "st_distance_sphere(geopoint, ST_GeomFromText(?,-1)) as dist "
 				+ "from naptan_groups "
-				+ "where geopoint && Expand(ST_GeomFromText('POINT(? ?)',-1),?) "
+				+ "where geopoint && Expand(ST_GeomFromText(?,-1),?) "
 				+ "order by dist asc limit ?";
 		PreparedStatement ps = db.prepareStatement(sql);
 		try {
-			ps.setDouble(1, lon);
-			ps.setDouble(2, lat);
-			ps.setDouble(3, lon);
-			ps.setDouble(4, lat);
-			ps.setInt(5, numResults);
+		  String point = "POINT( "+ lon + " " + lat + ")";
+		  ps.setString(1, point);
+			ps.setString(2, point);
+			ps.setDouble(3, radiusInDegrees);
+			ps.setInt(4, numResults);
 			writeResults(ps, res);
 		} finally {
 			ps.close();
