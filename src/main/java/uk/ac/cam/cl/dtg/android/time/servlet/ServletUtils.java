@@ -3,9 +3,14 @@ package uk.ac.cam.cl.dtg.android.time.servlet;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
@@ -140,5 +145,14 @@ public class ServletUtils {
 		public InvalidParameterException(String message) {
 			super(message);
 		}
-	}
+  }
+
+  public static DataSource getDataSource() throws NamingException {
+    Context ctx = new InitialContext();
+    return (DataSource) ctx.lookup("java:comp/env/jdbc/generaldb");
+  }
+
+  public static Connection getConnection() throws SQLException, NamingException {
+    return getDataSource().getConnection();
+  }
 }

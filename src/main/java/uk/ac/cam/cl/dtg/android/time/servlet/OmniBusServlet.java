@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -37,9 +35,7 @@ public abstract class OmniBusServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		try {
-			Context ctx = new InitialContext();
-			dataSource = (DataSource) ctx
-					.lookup("java:comp/env/jdbc/generaldb");
+			dataSource = ServletUtils.getDataSource();
 		} catch (NamingException e) {
 			throw new ServletException(e);
 		}
