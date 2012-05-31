@@ -24,10 +24,10 @@ import uk.ac.cam.cl.dtg.android.time.data.CouncilDataSource;
 public class GetStopsServlet extends OmniBusServlet {
 
 	private static class Cached {
-		List<BusStop> stops;
+		String stops;
 		long stored;
 
-		public Cached(List<BusStop> stops, long stored) {
+		public Cached(String stops, long stored) {
 			this.stops = stops;
 			this.stored = stored;
 		}
@@ -39,7 +39,7 @@ public class GetStopsServlet extends OmniBusServlet {
 	private Map<String, Cached> cachedResults;
 
 	// How long before cached results expire and must be reloaded
-	public static final int CACHE_TIMEOUT = 1000 * 60 * 60 * 48;
+	public static final int CACHE_TIMEOUT = 1000 * 60 * 60 * 24 * 7;// one week
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -55,30 +55,19 @@ public class GetStopsServlet extends OmniBusServlet {
 		ServletUtils.checkKeyForServices(req, db);
 		String level = ServletUtils.getRequiredParameter(req, "level");
 
-		List<BusStop> stops = getCachedResult(level);
+		String stops = getCachedResult(level);
 
-		// TODO: fix (this note left by David) I think the problem is that this
-		// does a fetch for all the cambs stops but no others. Also why do we
-		// need this at all? Don't we have the stops in the database already? acr31
+		// TODO(drt24): work out how to just use the database here.
+		// We can't do this simply as we don't store level information in the database
+		// so we have to make some sort of potentially breaking change where we only
+		// return information for one of the levels and return all the information for that level.
 		if (stops == null) {
-			stops = CouncilDataSource.getBusStops(Integer.parseInt(level));
-			cacheResult(level, stops);
+			stops = cacheResult(level, CouncilDataSource.getBusStops(Integer.parseInt(level)));
 		}
-
-		writer.open("response");
-		writer.open("stops", "count", String.valueOf(stops.size()));
-		for (BusStop stop : stops) {
-			writer.open("stop");
-			writer.textElement("name", stop.getName());
-			writer.textElement("ref", stop.getStopRef());
-			writer.textElement("lat", String.valueOf(stop.getLatitude()));
-			writer.textElement("long", String.valueOf(stop.getLongitude()));
-			writer.close("stop");
-		}
-		writer.close("response");
+		writer.raw(stops);
 	}
 
-	private List<BusStop> getCachedResult(String key) {
+	private String getCachedResult(String key) {
 		Cached record = cachedResults.get(key);
 		if (record == null)
 			return null;
@@ -90,17 +79,29 @@ public class GetStopsServlet extends OmniBusServlet {
 		return record.stops;
 	}
 
-	/**
-	 * Stores a cached copy of a lookup result
-	 * 
-	 * @param key
-	 *            Key uniquely identifying the lookup result
-	 * @param data
-	 *            Result to cache
-	 */
-	private void cacheResult(String key, List<BusStop> data) {
-		cachedResults.put(key, new Cached(data, System.currentTimeMillis()));
-	}
+  /**
+   * Stores a cached copy of a lookup result
+   * 
+   * @param key Key uniquely identifying the lookup result
+   * @param data Result to cache
+   */
+  private String cacheResult(String key, List<BusStop> stops) {
+    XMLWriter writer = new XMLWriter();
+    writer.open("response");
+    writer.open("stops", "count", String.valueOf(stops.size()));
+    for (BusStop stop : stops) {
+      writer.open("stop");
+      writer.textElement("name", stop.getName());
+      writer.textElement("ref", stop.getStopRef());
+      writer.textElement("lat", String.valueOf(stop.getLatitude()));
+      writer.textElement("long", String.valueOf(stop.getLongitude()));
+      writer.close("stop");
+    }
+    writer.close("response");
+    String result = writer.toString();
+    cachedResults.put(key, new Cached(result, System.currentTimeMillis()));
+    return result;
+  }
 
 	@Override
   public String getServletInfo() {
