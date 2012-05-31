@@ -43,7 +43,7 @@ public abstract class StopPointsServlet extends OmniBusServlet {
 				writer.open("naming");
 				writer.textElement("common", commonName);
 				writer.textElement("short", shortName);
-				writer.close("nameing");
+				writer.close("naming");
 				writer.textElement("direction", bearing);
 				writer.close("stop");
 			}
