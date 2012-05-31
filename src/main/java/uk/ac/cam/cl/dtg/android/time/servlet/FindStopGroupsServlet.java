@@ -38,13 +38,13 @@ public class FindStopGroupsServlet extends OmniBusServlet {
 
 		String method = ServletUtils.getRequiredParameter(req, "method",
 				"near", "within");
-		int numresults = ServletUtils.getIntParameter(req, "numresults",
-				DEFAULT_RESULTS_RETURNED);
-		int radius = ServletUtils.getIntParameter(req, "radius",
-				DEFAULT_SEARCH_RADIUS);
-		double radiusInDegrees = ((double) radius) * 0.0000111111111;
 
 		if (method.equals("near")) {
+		  int numresults = ServletUtils.getIntParameter(req, "numresults",
+	        DEFAULT_RESULTS_RETURNED);
+		  int radius = ServletUtils.getIntParameter(req, "radius",
+	        DEFAULT_SEARCH_RADIUS);
+	    double radiusInDegrees = ((double) radius) * 0.0000111111111;
 			double lat = Double.parseDouble(ServletUtils.getRequiredParameter(
 					req, "lat"));
 			double lon = Double.parseDouble(ServletUtils.getRequiredParameter(
@@ -98,20 +98,12 @@ public class FindStopGroupsServlet extends OmniBusServlet {
 				+ "long,"
 				+ "-1 as dist "
 				+ "from naptan_groups "
-				+ "where geopoint && ST_GeomFromText('POLYGON((? ?, ? ?, ? ?, ? ?, ? ?))', -1) "
+				+ "where geopoint && ST_GeomFromText(?, -1) "
 				+ "limit 10000";
 		PreparedStatement ps = db.prepareStatement(sql);
 		try {
-			ps.setDouble(1, left);
-			ps.setDouble(2, top);
-			ps.setDouble(3, right);
-			ps.setDouble(4, top);
-			ps.setDouble(5, right);
-			ps.setDouble(6, bottom);
-			ps.setDouble(7, left);
-			ps.setDouble(8, bottom);
-			ps.setDouble(9, left);
-			ps.setDouble(10, top);
+		  String polygon = String.format("POLYGON((%f %f, %f %f, %f %f, %f %f, %f %f))",left, top, right, top, right, bottom, left, bottom, left, top);
+		  ps.setString(1, polygon);
 			writeResults(ps, res);
 		} finally {
 			ps.close();
