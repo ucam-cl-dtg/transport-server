@@ -57,9 +57,10 @@ public class GetStopsServlet extends OmniBusServlet {
 
 		List<BusStop> stops = getCachedResult(level);
 
-		// TODO: fix (this note left by David) I think the problem is that this
-		// does a fetch for all the cambs stops but no others. Also why do we
-		// need this at all? Don't we have the stops in the database already? acr31
+    // TODO(drt24): work out how to just use the database here.
+    // We can't do this simply as we don't store level information in the database
+    // so we have to make some sort of potentially breaking change where we only
+    // return information for one of the levels and return all the information for that level.
 		if (stops == null) {
 			stops = CouncilDataSource.getBusStops(Integer.parseInt(level));
 			cacheResult(level, stops);
