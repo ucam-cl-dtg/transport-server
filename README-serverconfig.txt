@@ -19,7 +19,12 @@ grant all privileges on database minibus to minibus;
 EOF
 sh /usr/share/postgresql-8.4-postgis/utils/postgis_restore.pl /usr/share/postgresql/8.4/contrib/postgis.sql minibus /tmp/minibus.sql > /tmp/restore.log
 
-
+Add 
+<Resource auth="Container" driverClassName="org.postgresql.Driver"
+ maxActive="8" maxIdle="4" name="jdbc/generaldb" password="minibus"
+ type="javax.sql.DataSource" url="jdbc:postgresql://localhost/minibus"
+ username="minibus"/>
+To /etc/tomcat6/context.xml
 
 
 # deploy webapp
