@@ -21,7 +21,7 @@
 
 	<display-name>Transport Feeds Application</display-name>
 	<description>
-		Testing Servlets
+		Provides an API for requesting data on transport.
 	</description>
 
 
