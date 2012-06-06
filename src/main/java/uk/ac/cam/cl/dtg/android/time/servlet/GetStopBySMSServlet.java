@@ -48,7 +48,7 @@ public class GetStopBySMSServlet extends OmniBusServlet {
 		writer.open("response");
 		writer.open("stop");
 		writer.textElement("name", stop.getName());
-		writer.textElement("ref", stop.getStopRef());
+		writer.textElement("ref", stop.getAtcoCode());
 		writer.textElement("lat", stop.getLatitude() + "");
 		writer.textElement("long", stop.getLongitude() + "");
 		writer.close("response");

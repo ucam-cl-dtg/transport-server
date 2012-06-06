@@ -71,7 +71,7 @@ public class GetStopsServlet extends OmniBusServlet {
 		for (BusStop stop : stops) {
 			writer.open("stop");
 			writer.textElement("name", stop.getName());
-			writer.textElement("ref", stop.getStopRef());
+			writer.textElement("ref", stop.getAtcoCode());
 			writer.textElement("lat", String.valueOf(stop.getLatitude()));
 			writer.textElement("long", String.valueOf(stop.getLongitude()));
 			writer.close("stop");
