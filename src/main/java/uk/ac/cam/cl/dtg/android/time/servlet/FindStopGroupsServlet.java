@@ -20,7 +20,7 @@ public class FindStopGroupsServlet extends OmniBusServlet {
 
 	private static final long serialVersionUID = -19443654039914185L;
 
-	private static int DEFAULT_RESULTS_RETURNED = 10;
+	private static int DEFAULT_RESULTS_RETURNED = 20;
 
 	// looks for groups only within 10km
 	private static int DEFAULT_SEARCH_RADIUS = 10000;
