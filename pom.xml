@@ -10,6 +10,10 @@
   <artifactId>omnibus</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <scm>
+    <connection>scm:git:git@dtg-code.cl.cam.ac.uk:time/omnibus</connection>
+    <developerConnection>scm:git:git@dtg-code.cl.cam.ac.uk:time/omnibus</developerConnection>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
