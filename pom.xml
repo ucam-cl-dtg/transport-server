@@ -52,8 +52,6 @@
         <artifactId>tomcat6-maven-plugin</artifactId>
         <version>2.0-beta-1</version>
         <configuration>
-          <server>svr-acr31-minibus</server>
-          <url>${omnibus.production.deployurl}</url>
           <path>/${project.artifactId}</path>
         </configuration>
         <executions>
@@ -63,10 +61,6 @@
             <goals>
               <goal>redeploy</goal>
             </goals>
-            <configuration>
-              <server>local-tomcat</server>
-              <path>/${project.artifactId}</path>
-            </configuration>
           </execution>
           <!-- <execution> -->
           <!-- <id>undeploy-tomcat</id> -->
@@ -89,6 +83,30 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/test-classes</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${user.home}/.m2</directory>
+                  <includes>
+                    <include>settings.xml</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -103,28 +121,34 @@
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.5</version>
-            <executions>
-              <execution>
-                <id>copy-resources</id>
-                <phase>validate</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.directory}/test-classes</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>${user.home}/.m2</directory>
-                      <includes>
-                        <include>settings.xml</include>
-                      </includes>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat6-maven-plugin</artifactId>
+            <version>2.0-beta-1</version>
+            <configuration>
+              <server>local-tomcat</server>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <activation>
+        <property>
+          <name>environment</name>
+          <value>release</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat6-maven-plugin</artifactId>
+            <version>2.0-beta-1</version>
+            <configuration>
+              <server>svr-acr31-minibus</server>
+              <url>${omnibus.production.deployurl}</url>
+            </configuration>
           </plugin>
         </plugins>
       </build>
