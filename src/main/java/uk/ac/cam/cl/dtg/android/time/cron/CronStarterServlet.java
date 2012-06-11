@@ -36,7 +36,7 @@ public class CronStarterServlet extends HttpServlet {
 
       CronTriggerImpl trigger = new CronTriggerImpl();
       trigger.setName("Weekly");
-      trigger.setCronExpression("0 23 4 ? * MON");// 04:23:00 on Mondays
+      trigger.setCronExpression("0 23 4 ? * TUE");// 04:23:00 on Tuesdays
 
       sche.scheduleJob(refreshDefinitions, trigger);
 
