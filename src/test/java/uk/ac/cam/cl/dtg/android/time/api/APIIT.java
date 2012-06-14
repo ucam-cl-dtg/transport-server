@@ -28,8 +28,17 @@ public class APIIT {
   }
 
   @Test
-  public void getArrivals() throws TransportDataException {
-    BusArrivalData data = tdp.getBusArrivalData("0500CCITY111", 5);
+  public void getArrivalsNormal() throws TransportDataException {
+    getArrivals("0500CCITY111");// This should work by the normal means
+  }
+
+  @Test
+  public void getArrivalsFallback() throws TransportDataException {
+    getArrivals("0500CCITY424");// This should fallback to the stop simulator
+  }
+
+  public void getArrivals(String atcoCode) throws TransportDataException {
+    BusArrivalData data = tdp.getBusArrivalData(atcoCode, 5);
     int size = data.getNextBuses().size();
     assertTrue("Must be results", size > 0);
     assertTrue("Must not be too many results", size <= 5);
