@@ -1,0 +1,48 @@
+
+    <html>
+    <head>
+	    
+	    <META HTTP-EQUIV="Refresh" CONTENT="60">
+	    
+	    <LINK REL="stylesheet" TYPE="text/css" HREF="/style/PIPstyle_common.asp" TITLE="style">
+	    <script src="/common/pip.js" language="javascript" type="text/javascript"></script>
+	    <LINK REL="stylesheet" TYPE="text/css" HREF="/style/PIPstyle_Gecko.css" TITLE="style">
+	    <script language="javascript">
+	    <!--
+    	
+	    function init() {
+		    update_title();
+		    start_backup_refresh_timer();
+	    }
+    	
+	    function update_title() {
+		    parent.ss_title.location.reload();
+		    //parent.ss_title.location.href=parent.ss_title.location.href;
+	    }
+    	
+	    function start_backup_refresh_timer() {
+		    // This may seem odd. But there has been a report of
+		    // the meta-refresh failing one one occasion?!?. So here
+		    // is a 'backup' in case of browser problems....
+		    
+		    setTimeout("self.location.reload()", 70000);
+		    
+	    }
+    	
+	    function link_open(theURL, theName, popW, popH, scroll) { // V 1.0
+		    var winleft = (screen.width - popW) / 2;
+		    var winUp = (screen.height - popH) / 2;
+		    winProp = 'width='+popW+',height='+popH+',left='+winleft+',t op='+winUp+',scrollbars='+scroll+',resizable'
+		    Win = window.open(theURL, theName, winProp)
+		    if (parseInt(navigator.appVersion) >= 4){
+			    Win.window.focus();
+		    }
+	    }
+    	
+	    //-->
+	    </script>
+    </head>
+    <body class="ss_table" onload="javascript:init();">
+	    <table class=pipdetail cellpadding='0' cellspacing='0'><td width='25%' nowrap>UNI4&nbsp;</td><td width='35%' class='destination' nowrap>Mad-ley Rd&nbsp;</td><td width='20%' align='right' nowrap>09:55&nbsp;</td><td width='20%' nowrap>&nbsp;&nbsp;</td></tr><td width='25%' nowrap>UNI4&nbsp;</td><td width='35%' class='destination' nowrap>Mad-ley Rd&nbsp;</td><td width='20%' align='right' nowrap>10:15&nbsp;</td><td width='20%' nowrap>&nbsp;&nbsp;</td></tr><td width='25%' nowrap>UNI4&nbsp;</td><td width='35%' class='destination' nowrap>Mad-ley Rd&nbsp;</td><td width='20%' align='right' nowrap>10:35&nbsp;</td><td width='20%' nowrap>&nbsp;&nbsp;</td></tr></table>
+    </body>
+    </html>
