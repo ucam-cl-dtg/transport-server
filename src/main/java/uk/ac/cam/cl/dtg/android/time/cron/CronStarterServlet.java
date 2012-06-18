@@ -39,6 +39,8 @@ public class CronStarterServlet extends HttpServlet {
       trigger.setCronExpression("0 23 4 ? * TUE");// 04:23:00 on Tuesdays
 
       sche.scheduleJob(refreshDefinitions, trigger);
+      // Run refresh definitions on startup
+      new RefreshDefinitions().execute(null);
 
     } catch (SchedulerException e) {
       throw new ServletException(e);
