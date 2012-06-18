@@ -7,12 +7,12 @@
   </parent>
   <groupId>uk.ac.cam.cl.dtg.android.time</groupId>
   <artifactId>omnibus</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.3</version>
   <packaging>war</packaging>
   <scm>
     <connection>scm:git:git@dtg-code.cl.cam.ac.uk:time/omnibus</connection>
     <developerConnection>scm:git:git@dtg-code.cl.cam.ac.uk:time/omnibus</developerConnection>
-    <tag>HEAD</tag>
+    <tag>omnibus-0.0.3</tag>
   </scm>
   <dependencies>
     <dependency>
