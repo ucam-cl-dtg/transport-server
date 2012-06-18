@@ -36,6 +36,11 @@ public class APIIT {
   public void getArrivalsFallback() throws TransportDataException {
     getArrivals("0500CCITY424");// This should fallback to the stop simulator
   }
+  @Test
+  public void getArrivalsTFL() throws TransportDataException {
+    getArrivals("490007247S");
+    getArrivals("150003475W");
+  }
 
   public void getArrivals(String atcoCode) throws TransportDataException {
     BusArrivalData data = tdp.getBusArrivalData(atcoCode, 5);
