@@ -47,6 +47,11 @@ public class APIIT {
     int size = data.getNextBuses().size();
     assertTrue("Must be results", size > 0);
     assertTrue("Must not be too many results", size <= 5);
+    // Get the same thing again to trigger getting via the cache
+    data = tdp.getBusArrivalData(atcoCode, 5);
+    size = data.getNextBuses().size();
+    assertTrue("Must be results", size > 0);
+    assertTrue("Must not be too many results", size <= 5);
   }
 
   @Test

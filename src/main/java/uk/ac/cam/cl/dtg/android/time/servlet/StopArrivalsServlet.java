@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +15,23 @@ import uk.ac.cam.cl.dtg.android.time.data.handler.QueryHandler;
 
 public class StopArrivalsServlet extends OmniBusServlet {
 
-	private static final long serialVersionUID = -4742141286775513812L;
+	private static class Arrivals {
+	  public final long expiry;
+	  public final List<BusArrival> arrivals;
+	  public Arrivals(List<BusArrival> arrivals){
+	    this.expiry = System.currentTimeMillis();
+	    this.arrivals = arrivals;
+	  }
+	  public boolean hasExpired() {
+	    return expiry < System.currentTimeMillis() - 1000L*30;//30 seconds
+	  }
+  }
+
+  private static final long serialVersionUID = -474214128677551381L;
 
 	// How many arrivals to fetch by default
 	public static final int DEFAULT_ARRIVAL_COUNT = 5;
+	private static Map<String,Arrivals> arrivalsCache = new WeakHashMap<String,Arrivals>();
 
 	private QueryHandler lookupHandler(String atcoCode, Connection db) throws SQLException {
 		String sql = "select handler from available_stops"
@@ -50,22 +65,26 @@ public class StopArrivalsServlet extends OmniBusServlet {
 		}
 	}
 
-	@Override
-	protected void xmlGet(HttpServletRequest req, Connection db,
-			XMLWriter writer) throws Exception {
-		ServletUtils.checkKeyForServices(req, db);
-	
-		String atcoCode = ServletUtils.getRequiredParameter(req, "atco");
-		System.out.println("Recevied query for "+atcoCode);
-		
-		int numarrivals = ServletUtils.getIntParameter(req, "numarrivals",
-				DEFAULT_ARRIVAL_COUNT);
-		QueryHandler dataSourceHandler = lookupHandler(atcoCode, db);
+  @Override
+  protected void xmlGet(HttpServletRequest req, Connection db, XMLWriter writer) throws Exception {
+    ServletUtils.checkKeyForServices(req, db);
 
-		List<BusArrival> nextArrivals = dataSourceHandler.listArrivals(
-				atcoCode, numarrivals);
-		writeResponse(nextArrivals, writer);
-	}
+    String atcoCode = ServletUtils.getRequiredParameter(req, "atco");
+    System.out.println("Recevied query for " + atcoCode);
+
+    int numArrivals = ServletUtils.getIntParameter(req, "numarrivals", DEFAULT_ARRIVAL_COUNT);
+    Arrivals cachedArrivals = arrivalsCache.get(atcoCode);
+    if (cachedArrivals != null && !cachedArrivals.hasExpired()
+        && cachedArrivals.arrivals.size() >= numArrivals) {
+      writeResponse(cachedArrivals.arrivals, writer);
+    } else {
+      QueryHandler dataSourceHandler = lookupHandler(atcoCode, db);
+
+      List<BusArrival> nextArrivals = dataSourceHandler.listArrivals(atcoCode, numArrivals);
+      writeResponse(nextArrivals, writer);
+      arrivalsCache.put(atcoCode, new Arrivals(nextArrivals));
+    }
+  }
 
 	private void writeResponse(List<BusArrival> nextArrivals, XMLWriter writer) {
 		writer.open("response");
