@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Siri xmlns="http://www.siri.org.uk/" version="1.0">
+  <ServiceDelivery>
+    <ResponseTimestamp>2011-10-24T15:09:20.889+01:00</ResponseTimestamp>
+    <StopMonitoringDelivery version="1.0">
+      <ResponseTimestamp>2011-10-24T15:09:20.889+01:00</ResponseTimestamp>
+      <RequestMessageRef>12345</RequestMessageRef>
+      <MonitoredStopVisit>
+        <RecordedAtTime>2011-10-24T15:09:20.889+01:00</RecordedAtTime>
+        <MonitoringRef>020035811</MonitoringRef>
+        <MonitoredVehicleJourney>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>-</DataFrameRef>
+            <DatedVehicleJourneyRef>-</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <PublishedLineName>42</PublishedLineName>
+          <DirectionName>Toddington, The Green</DirectionName>
+          <OperatorRef>153</OperatorRef>
+          <MonitoredCall>
+            <AimedDepartureTime>2011-10-24T15:09:00.000+01:00</AimedDepartureTime>
+          </MonitoredCall>
+        </MonitoredVehicleJourney>
+      </MonitoredStopVisit>
+      <MonitoredStopVisit>
+        <RecordedAtTime>2011-10-24T15:09:20.889+01:00</RecordedAtTime>
+        <MonitoringRef>020035811</MonitoringRef>
+        <MonitoredVehicleJourney>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>-</DataFrameRef>
+            <DatedVehicleJourneyRef>-</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <PublishedLineName>2</PublishedLineName>
+          <DirectionName>Elstow, Elstow Park and Ride</DirectionName>
+          <OperatorRef>5100</OperatorRef>
+          <MonitoredCall>
+            <AimedDepartureTime>2011-10-24T15:10:00.000+01:00</AimedDepartureTime>
+          </MonitoredCall>
+        </MonitoredVehicleJourney>
+      </MonitoredStopVisit>
+      <MonitoredStopVisit>
+        <RecordedAtTime>2011-10-24T15:09:20.889+01:00</RecordedAtTime>
+        <MonitoringRef>020035811</MonitoringRef>
+        <MonitoredVehicleJourney>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>-</DataFrameRef>
+            <DatedVehicleJourneyRef>-</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <PublishedLineName>1</PublishedLineName>
+          <DirectionName>Kempston</DirectionName>
+          <MonitoredCall>
+            <AimedDepartureTime>2011-10-24T15:17:00.000+01:00</AimedDepartureTime>
+            <ExpectedDepartureTime>2011-10-24T15:18:02.000+01:00</ExpectedDepartureTime>
+          </MonitoredCall>
+        </MonitoredVehicleJourney>
+      </MonitoredStopVisit>
+      <MonitoredStopVisit>
+        <RecordedAtTime>2011-10-24T15:09:20.889+01:00</RecordedAtTime>
+        <MonitoringRef>020035811</MonitoringRef>
+        <MonitoredVehicleJourney>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>-</DataFrameRef>
+            <DatedVehicleJourneyRef>-</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <PublishedLineName>53</PublishedLineName>
+          <DirectionName>Wootton, Squires Road</DirectionName>
+          <OperatorRef>5100</OperatorRef>
+          <MonitoredCall>
+            <AimedDepartureTime>2011-10-24T15:19:00.000+01:00</AimedDepartureTime>
+          </MonitoredCall>
+        </MonitoredVehicleJourney>
+      </MonitoredStopVisit>
+      <MonitoredStopVisit>
+        <RecordedAtTime>2011-10-24T15:09:20.889+01:00</RecordedAtTime>
+        <MonitoringRef>020035811</MonitoringRef>
+        <MonitoredVehicleJourney>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>-</DataFrameRef>
+            <DatedVehicleJourneyRef>-</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <PublishedLineName>2</PublishedLineName>
+          <DirectionName>Elstow, Elstow Park and Ride</DirectionName>
+          <OperatorRef>5100</OperatorRef>
+          <MonitoredCall>
+            <AimedDepartureTime>2011-10-24T15:22:00.000+01:00</AimedDepartureTime>
+          </MonitoredCall>
+        </MonitoredVehicleJourney>
+      </MonitoredStopVisit>
+    </StopMonitoringDelivery>
+  </ServiceDelivery>
+</Siri>
