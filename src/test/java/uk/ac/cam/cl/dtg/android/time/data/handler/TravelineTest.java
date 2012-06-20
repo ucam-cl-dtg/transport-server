@@ -48,7 +48,6 @@ public class TravelineTest {
   @Test
   public void getArrivals() throws IOException {
     List<BusArrival> arrivals = handler.listArrivals("627003020520", 5);
-    System.out.println(arrivals);
     assertTrue(arrivals.size() > 0);
   }
 }

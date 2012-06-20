@@ -18,13 +18,13 @@ import uk.ac.cam.cl.dtg.compilesettingsloader.Loader;
 
 public class APIIT {
 
+  private static final String APIKEY = Loader.load("omnibus.release.apikey");
+  private static final String FEEDURL = Loader.load("omnibus.development.feedurl");
   private TransportDataProvider tdp;
 
   @Before
   public void getProvider() {
-    tdp =
-        new TransportDataProvider(Loader.load("omnibus.release.apikey"),
-            Loader.load("omnibus.development.feedurl"));
+    tdp = new TransportDataProvider(APIKEY,FEEDURL);
   }
 
   @Test
