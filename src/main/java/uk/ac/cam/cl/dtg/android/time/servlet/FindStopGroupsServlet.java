@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -24,12 +22,6 @@ public class FindStopGroupsServlet extends OmniBusServlet {
 
 	// looks for groups only within 10km
 	private static int DEFAULT_SEARCH_RADIUS = 10000;
-
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		super.init(config);
-	}
 
 	@Override
 	protected void xmlGet(HttpServletRequest req, Connection db,

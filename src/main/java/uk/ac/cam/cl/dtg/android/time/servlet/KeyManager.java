@@ -56,7 +56,6 @@ public class KeyManager {
 	 * 
 	 * @param key
 	 * @param db
-	 *            TODO
 	 * @throws InvalidKeyException
 	 */
 	public static void isValidForServices(String key, Connection db)
