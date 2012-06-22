@@ -6,10 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.util.List;
-
-import javax.naming.NamingException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,7 +25,7 @@ public class TravelineTest {
   }
 
   @Test
-  public void parseSiri() throws IOException, SQLException, NamingException {
+  public void parseSiri() throws IOException {
     List<BusArrival> arrivals =
         handler.parseSiri(this.getClass().getClassLoader().getResourceAsStream(
             "siri/exampleResponse.xml"));
