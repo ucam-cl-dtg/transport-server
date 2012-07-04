@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import uk.ac.cam.cl.dtg.android.time.buses.BusStop;
-import uk.ac.cam.cl.dtg.android.time.data.CouncilDataSource;
 
 /**
  * Provides XML/RPC interface to bus stop position web service Not exposed as

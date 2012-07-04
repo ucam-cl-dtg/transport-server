@@ -14,8 +14,8 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import uk.ac.cam.cl.dtg.android.time.data.handler.QueryHandler;
 import uk.ac.cam.cl.dtg.android.time.servlet.ServletUtils;
+import uk.ac.cam.cl.dtg.time.data.handler.QueryHandler;
 
 /**
  * Refresh the definitions provided by all the handlers.

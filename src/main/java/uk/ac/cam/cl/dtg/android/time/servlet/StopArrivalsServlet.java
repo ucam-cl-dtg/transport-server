@@ -11,7 +11,7 @@ import java.util.WeakHashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import uk.ac.cam.cl.dtg.android.time.buses.BusArrival;
-import uk.ac.cam.cl.dtg.android.time.data.handler.QueryHandler;
+import uk.ac.cam.cl.dtg.time.data.handler.QueryHandler;
 
 public class StopArrivalsServlet extends TransportServlet {
 
