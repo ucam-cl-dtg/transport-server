@@ -1,6 +1,10 @@
 package uk.ac.cam.cl.dtg.android.time.servlet;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -54,14 +58,18 @@ public class GetStopsServlet extends TransportServlet {
 		ServletUtils.checkKeyForServices(req, db);
 		String level = ServletUtils.getRequiredParameter(req, "level");
 
+		//TODO(drt24) We don't have level information any more so we just return all the information for level 1
+		if (level != "1"){
+		  writer.open("response");
+		  writer.open("stops", "count", String.valueOf(0));
+		  writer.close("stops");
+		  writer.close("response");
+		  return;
+		}
 		List<BusStop> stops = getCachedResult(level);
 
-    // TODO(drt24): work out how to just use the database here.
-    // We can't do this simply as we don't store level information in the database
-    // so we have to make some sort of potentially breaking change where we only
-    // return information for one of the levels and return all the information for that level.
 		if (stops == null) {
-			stops = CouncilDataSource.getBusStops(Integer.parseInt(level));
+			stops = getBusStopsForProvider("cambs", db);
 			cacheResult(level, stops);
 		}
 
@@ -100,7 +108,28 @@ public class GetStopsServlet extends TransportServlet {
 	 */
 	private void cacheResult(String key, List<BusStop> data) {
 		cachedResults.put(key, new Cached(data, System.currentTimeMillis()));
-	}
+  }
+
+  protected List<BusStop> getBusStopsForProvider(String provider, Connection db)
+      throws SQLException {
+    PreparedStatement stmt =
+        db.prepareStatement("SELECT atco_code, lat, long, stop_name FROM available_stops WHERE data_source = ?");
+    try {
+      stmt.setString(1, provider);
+      ResultSet rs = stmt.executeQuery();
+      List<BusStop> stops = new ArrayList<BusStop>();
+      while (rs.next()) {
+        String stopName = rs.getString("stop_name");
+        double latitude = Double.parseDouble(rs.getString("lat"));
+        double longitude = Double.parseDouble(rs.getString("long"));
+        String atcoCode = rs.getString("atco_code");
+        stops.add(new BusStop(stopName, latitude, longitude, atcoCode));
+      }
+      return stops;
+    } finally {
+      stmt.close();
+    }
+  }
 
 	@Override
   public String getServletInfo() {
