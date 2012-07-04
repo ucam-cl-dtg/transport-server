@@ -6,8 +6,8 @@
     <artifactId>parent</artifactId>
     <version>1.0.1</version>
   </parent>
-  <groupId>uk.ac.cam.cl.dtg.android.time</groupId>
-  <artifactId>transport</artifactId>
+  <groupId>uk.ac.cam.cl.dtg.time</groupId>
+  <artifactId>transport-server</artifactId>
   <version>0.0.4-SNAPSHOT</version>
   <packaging>war</packaging>
   <scm>
