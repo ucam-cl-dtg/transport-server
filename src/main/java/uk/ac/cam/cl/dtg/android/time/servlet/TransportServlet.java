@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-public abstract class OmniBusServlet extends HttpServlet {
+public abstract class TransportServlet extends HttpServlet {
 	private static final long serialVersionUID = 7072675699040951250L;
 
 	protected final Logger log = Logger.getLogger(this.getClass().getCanonicalName());

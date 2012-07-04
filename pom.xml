@@ -7,12 +7,12 @@
     <version>1.0.1</version>
   </parent>
   <groupId>uk.ac.cam.cl.dtg.android.time</groupId>
-  <artifactId>omnibus</artifactId>
+  <artifactId>transport</artifactId>
   <version>0.0.4-SNAPSHOT</version>
   <packaging>war</packaging>
   <scm>
-    <connection>scm:git:git@dtg-code.cl.cam.ac.uk:time/omnibus</connection>
-    <developerConnection>scm:git:git@dtg-code.cl.cam.ac.uk:time/omnibus</developerConnection>
+    <connection>scm:git:git@dtg-code.cl.cam.ac.uk:time/transport-server</connection>
+    <developerConnection>scm:git:git@dtg-code.cl.cam.ac.uk:time/transport-server</developerConnection>
     <tag>HEAD</tag>
   </scm>
   <dependencies>
@@ -170,7 +170,7 @@
             <version>2.0-beta-1</version>
             <configuration>
               <server>svr-acr31-minibus</server>
-              <url>${omnibus.production.deployurl}</url>
+              <url>${transport-server.production.deployurl}</url>
             </configuration>
           </plugin>
         </plugins>

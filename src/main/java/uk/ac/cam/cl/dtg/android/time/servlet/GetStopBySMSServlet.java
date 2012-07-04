@@ -10,14 +10,14 @@ import uk.ac.cam.cl.dtg.android.time.buses.BusStop;
 
 /**
  * Provides XML/RPC interface to bus stop position web service Not exposed as
- * part of OmniBus - should instead use LookupStop. This is here to support
+ * part of Transport Server - should instead use LookupStop. This is here to support
  * Cambridgeshire bus app
  * 
  * @author dt316
  * 
  * smscodes are naptan_codes
  */
-public class GetStopBySMSServlet extends OmniBusServlet {
+public class GetStopBySMSServlet extends TransportServlet {
 
 	private static final long serialVersionUID = -4945691160872319999L;
 

@@ -20,8 +20,8 @@ public class TravelineTest {
 
   @BeforeClass
   public static void setupHandler() throws UnsupportedEncodingException {
-    handler = new TravelineHandler(Loader.load("omnibus.traveline.api.user"), Loader
-            .load("omnibus.traveline.api.password"));
+    handler = new TravelineHandler(Loader.load("transport-server.traveline.api.user"), Loader
+            .load("transport-server.traveline.api.password"));
   }
 
   @Test

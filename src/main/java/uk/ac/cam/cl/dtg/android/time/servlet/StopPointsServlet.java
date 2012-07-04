@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public abstract class StopPointsServlet extends OmniBusServlet {
+public abstract class StopPointsServlet extends TransportServlet {
 
 	private static final long serialVersionUID = -7628758598052964002L;
 

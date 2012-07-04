@@ -18,8 +18,8 @@ import uk.ac.cam.cl.dtg.compilesettingsloader.Loader;
 
 public class APIIT {
 
-  private static final String APIKEY = Loader.load("omnibus.release.apikey");
-  private static final String FEEDURL = Loader.load("omnibus.development.feedurl");
+  private static final String APIKEY = Loader.load("transport-server.release.apikey");
+  private static final String FEEDURL = Loader.load("transport-server.development.feedurl");
   private TransportDataProvider tdp;
 
   @Before

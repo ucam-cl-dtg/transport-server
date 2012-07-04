@@ -15,13 +15,13 @@ import uk.ac.cam.cl.dtg.android.time.data.CouncilDataSource;
 
 /**
  * Provides XML/RPC interface to bus stop position web service Not exposed as
- * part of OmniBus - should instead use FindStopGroups / ListStopPoints. This is
+ * part of Transport Server - should instead use FindStopGroups / ListStopPoints. This is
  * here to support Cambridgeshire bus app
  * 
  * @author dt316
  * 
  */
-public class GetStopsServlet extends OmniBusServlet {
+public class GetStopsServlet extends TransportServlet {
 
 	private static class Cached {
 		List<BusStop> stops;

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import uk.ac.cam.cl.dtg.android.time.buses.BusArrival;
 import uk.ac.cam.cl.dtg.android.time.data.handler.QueryHandler;
 
-public class StopArrivalsServlet extends OmniBusServlet {
+public class StopArrivalsServlet extends TransportServlet {
 
 	private static class Arrivals {
 	  public final long expiry;

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author dt316
  * 
  */
-public class FindStopGroupsServlet extends OmniBusServlet {
+public class FindStopGroupsServlet extends TransportServlet {
 
 	private static final long serialVersionUID = -19443654039914185L;
 
