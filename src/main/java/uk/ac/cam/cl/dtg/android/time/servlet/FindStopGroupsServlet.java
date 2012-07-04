@@ -1,6 +1,5 @@
 package uk.ac.cam.cl.dtg.android.time.servlet;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +35,7 @@ public class FindStopGroupsServlet extends TransportServlet {
 	        DEFAULT_RESULTS_RETURNED);
 		  int radius = ServletUtils.getIntParameter(req, "radius",
 	        DEFAULT_SEARCH_RADIUS);
-	    double radiusInDegrees = ((double) radius) * 0.0000111111111;
+	    double radiusInDegrees = radius * 0.0000111111111;
 			double lat = Double.parseDouble(ServletUtils.getRequiredParameter(
 					req, "lat"));
 			double lon = Double.parseDouble(ServletUtils.getRequiredParameter(
@@ -56,8 +55,7 @@ public class FindStopGroupsServlet extends TransportServlet {
 	}
 
 	private void queryNear(double radiusInDegrees, double lat, double lon,
-			int numResults, Connection db, XMLWriter res) throws SQLException,
-			IOException {
+			int numResults, Connection db, XMLWriter res) throws SQLException {
 		String sql = "select "
 				+ "name,"
 				+ "group_ref,"
@@ -81,8 +79,7 @@ public class FindStopGroupsServlet extends TransportServlet {
 	}
 
 	private void queryWithin(double left, double top, double right,
-			double bottom, Connection db, XMLWriter res) throws SQLException,
-			IOException {
+			double bottom, Connection db, XMLWriter res) throws SQLException {
 		String sql = "select "
 				+ "name,"
 				+ "group_ref,"
@@ -103,7 +100,7 @@ public class FindStopGroupsServlet extends TransportServlet {
 	}
 
 	private void writeResults(PreparedStatement st, XMLWriter writer)
-			throws IOException, SQLException {
+			throws SQLException {
 		ResultSet rs = st.executeQuery();
 		try {
 			writer.open("response").open("groups");
