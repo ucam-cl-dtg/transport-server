@@ -12,6 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.NamingException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -136,6 +139,12 @@ public class TravelineHandler extends AbstractHandler {
     };
 
     private final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz");
+    private final DateFormat formatterNew = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    {
+      formatterNew.setTimeZone(TimeZone.getTimeZone("Z"));
+    }
+
+    private final Pattern colonPattern = Pattern.compile(".*\\d\\d:\\d\\d$");
 
     private STATE state = STATE.OUTSIDEINTEREST;
     private String lineName = null;
@@ -175,10 +184,15 @@ public class TravelineHandler extends AbstractHandler {
     }
 
     private Date parseEvilTimestamp(String original) throws ParseException {
-      final int origLength = original.length();
-      String last = original.substring(origLength - 2, origLength);
-      String first = original.substring(0, origLength - 3);
-      return formatter.parse(first + last);
+      Matcher colonMatcher = colonPattern.matcher(original);
+      if (colonMatcher.matches()) {//Check if timezone in HH:MM format and convert to HHMM format expected by java
+        final int origLength = original.length();
+        String last = original.substring(origLength - 2, origLength);
+        String first = original.substring(0, origLength - 3);
+        return formatter.parse(first + last);
+      } else {
+        return formatterNew.parse(original);
+      }
     }
 
     @Override
