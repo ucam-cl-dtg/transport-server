@@ -42,6 +42,11 @@
 		</description>
 	</context-param>
 
+  <!-- Initialise the database to the correct schemea on context load, before 
+    any servlets run -->
+  <listener>
+    <listener-class>uk.ac.cam.cl.dtg.android.time.servlet.DatabaseInitialisationListener</listener-class>
+  </listener>
 
 	<!-- Servlet definitions for the servlets that make up your web application, 
 		including initialization parameters. With Tomcat, you can also send requests 
