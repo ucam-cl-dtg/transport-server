@@ -7,12 +7,12 @@
   </parent>
   <groupId>uk.ac.cam.cl.dtg.time</groupId>
   <artifactId>transport-server</artifactId>
-  <version>0.0.5-SNAPSHOT</version>
+  <version>0.0.5</version>
   <packaging>war</packaging>
   <scm>
     <connection>scm:git:git@dtg-code.cl.cam.ac.uk:time/transport-server</connection>
     <developerConnection>scm:git:git@dtg-code.cl.cam.ac.uk:time/transport-server</developerConnection>
-    <tag>HEAD</tag>
+    <tag>transport-server-0.0.5</tag>
   </scm>
   <dependencies>
     <dependency>
