@@ -1,8 +1,11 @@
 package uk.ac.cam.cl.dtg.android.time.api;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -26,6 +29,14 @@ public class APIIT {
   public void getProvider() {
     tdp = new TransportDataProvider(APIKEY,FEEDURL);
   }
+  /**
+   * We don't want to overload the upstream server when running tests so slow things down a bit
+   * @throws InterruptedException
+   */
+  @Before
+  public void slowDown() throws InterruptedException {
+    Thread.sleep(500);
+  }
 
   @Test
   public void getArrivalsNormal() throws TransportDataException {
@@ -45,13 +56,13 @@ public class APIIT {
   public void getArrivals(String atcoCode) throws TransportDataException {
     BusArrivalData data = tdp.getBusArrivalData(atcoCode, 5);
     int size = data.getNextBuses().size();
-    assertTrue("Must be results", size > 0);
-    assertTrue("Must not be too many results", size <= 5);
+    assertThat("Must be results", size, greaterThan(0));
+    assertThat("Must not be too many results", size, lessThan(70));
     // Get the same thing again to trigger getting via the cache
     data = tdp.getBusArrivalData(atcoCode, 5);
     size = data.getNextBuses().size();
-    assertTrue("Must be results", size > 0);
-    assertTrue("Must not be too many results", size <= 5);
+    assertThat("Must be results", size, greaterThan(0));
+    assertThat("Must not be too many results", size, lessThan(70));
   }
 
   @Test
@@ -71,7 +82,7 @@ public class APIIT {
   @Test
   public void findStopGroupsNear() throws TransportDataException {
     List<StopGroup> groups = tdp.getStopGroupsNear(52.2, 0.09);
-    assertTrue("must be enough results", groups.size() >= 10);// this is the old default value to return so we should get at least that
+    assertThat("must be enough results", groups.size(), greaterThanOrEqualTo(10));// this is the old default value to return so we should get at least that
     for (StopGroup group : groups) {
       assertNotNull(group.getName());
       assertNotNull(group.getRef());
@@ -81,7 +92,7 @@ public class APIIT {
   @Test
   public void findStopGroupsWithin() throws TransportDataException {
     List<StopGroup> groups = tdp.getStopGroupsWithin(0.051241, 52.212537, 0.073557, 52.204910);
-    assertTrue("must be enough results", groups.size() >= 2);// slightly less than we saw when writing this
+    assertThat("must be enough results", groups.size(), greaterThanOrEqualTo(2));// slightly less than we saw when writing this
     for (StopGroup group : groups) {
       assertNotNull(group.getName());
       assertNotNull(group.getRef());
@@ -91,7 +102,7 @@ public class APIIT {
   @Test
   public void listStopPoints() throws TransportDataException {
     List<BusStop> busStops = tdp.getBusStopsInGroup("050GCC000000");
-    assertTrue("Must be stops", busStops.size() >= 10);// slightly less than we saw when writing this
+    assertThat("Must be stops", busStops.size(), greaterThanOrEqualTo(10));// slightly less than we saw when writing this
     for (BusStop stop : busStops) {
       assertNotNull(stop.getName());
       assertNotNull(stop.getAtcoCode());
