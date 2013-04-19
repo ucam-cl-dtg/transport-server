@@ -53,7 +53,7 @@ public class TravelineHandler extends AbstractHandler {
     this.sourceID = "traveline";
     PreparedStatement ps =
         ServletUtils.getConnection().prepareStatement(
-            "SELECT username, password FROM credentials WHERE provider = " + sourceID);
+            "SELECT username, password FROM credentials WHERE provider = '" + sourceID + "'");
     try {
       ResultSet rs = ps.executeQuery();
       if (rs.next()) {
