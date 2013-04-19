@@ -83,7 +83,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.0-beta-1</version>
         <configuration>
-          <path>/transport</path>
+          <update>true</update>
         </configuration>
         <executions>
           <execution>
@@ -164,6 +164,7 @@
             <artifactId>tomcat7-maven-plugin</artifactId>
             <version>2.0-beta-1</version>
             <configuration>
+              <path>/transport</path>
               <server>local-tomcat</server>
               <url>${transport-server.development.deployurl}</url>
             </configuration>
@@ -180,6 +181,7 @@
             <artifactId>tomcat7-maven-plugin</artifactId>
             <version>2.0-beta-1</version>
             <configuration>
+              <path>/omnibus</path>
               <server>svr-acr31-minibus</server>
               <url>${transport-server.production.deployurl}</url>
             </configuration>
