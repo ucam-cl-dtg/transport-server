@@ -54,12 +54,12 @@ public abstract class TransportServlet extends HttpServlet {
 				try {
 					Connection db = getConnection();
 					try {
-            //log.log(Level.INFO, "Request to: " + req.getRequestURI() + " With query string: " + req.getQueryString());
+            log.log(Level.FINER, "Request to: " + req.getRequestURI() + " With query string: " + req.getQueryString());
 						resp.setContentType(ServletUtils.MIME_XML);
 						XMLWriter writer = new XMLWriter(resp.getWriter());
 						xmlGet(req, db, writer);
 						writer.flush();
-            //log.log(Level.INFO, "Request completed.");
+            log.log(Level.FINER, "Request completed.");
 					} finally {
 						db.close();
 					}
