@@ -59,16 +59,17 @@ public class GetStopsServlet extends TransportServlet {
 		String level = ServletUtils.getRequiredParameter(req, "level");
 
 		//TODO(drt24) We don't have level information any more so we just return all the information for level 1
-		if (level != "1"){
+		if (!level.equals("1")){
 		  writer.open("response");
 		  writer.open("stops", "count", String.valueOf(0));
 		  writer.close("stops");
 		  writer.close("response");
+		  log.fine(String.format("GetStops for level '%s' so returning empty", level));
 		  return;
 		}
 		List<BusStop> stops = getCachedResult(level);
 
-		if (stops == null) {
+		if (stops == null || stops.size() == 0) {
 			stops = getBusStopsForProvider("cambs", db);
 			cacheResult(level, stops);
 		}
