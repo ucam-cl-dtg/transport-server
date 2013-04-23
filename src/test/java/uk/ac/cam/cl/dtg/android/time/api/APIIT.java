@@ -4,14 +4,19 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.cam.cl.dtg.android.time.buses.ArrivalTime;
+import uk.ac.cam.cl.dtg.android.time.buses.BusArrival;
 import uk.ac.cam.cl.dtg.android.time.buses.BusArrivalData;
 import uk.ac.cam.cl.dtg.android.time.buses.BusStop;
 import uk.ac.cam.cl.dtg.android.time.buses.StopGroup;
@@ -58,6 +63,16 @@ public class APIIT {
     int size = data.getNextBuses().size();
     assertThat("Must be results", size, greaterThan(0));
     assertThat("Must not be too many results", size, lessThan(70));
+    boolean allDue = true;
+    boolean atLeastOneAfter = false;
+    Date now = new Date();
+    for (BusArrival arrival : data.getNextBuses()){
+      ArrivalTime time = arrival.getDueTime();
+      allDue &= time.isDue;
+      atLeastOneAfter |= time.after(now);
+    }
+    assertFalse("At least one must not be due", allDue);
+    assertTrue("At least one must be in the future", atLeastOneAfter);
     // Get the same thing again to trigger getting via the cache
     data = tdp.getBusArrivalData(atcoCode, 5);
     size = data.getNextBuses().size();
